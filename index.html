@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Continuous Node | SAP Architecture & Integration Master Hub</title>
+    <title>The Continuous Node | Enterprise SAP Integration & Architecture Hub</title>
     
     <!-- Google AdSense Verification Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1378964403590324"
@@ -38,36 +38,52 @@
             background: var(--card-bg);
             border-bottom: 1px solid var(--border-color);
             padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .nav-bar a {
+        .nav-brand {
+            color: #ffffff;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
             color: var(--accent-blue);
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 0.95rem;
+            transition: color 0.2s;
         }
 
-        .nav-bar a:hover {
-            text-decoration: underline;
+        .nav-links a:hover {
+            color: #ffffff;
         }
 
         header {
             background: linear-gradient(135deg, #0284c7 0%, #4c1d95 50%, #064e3b 100%);
-            padding: 70px 20px;
+            padding: 80px 20px;
             text-align: center;
             border-bottom: 1px solid var(--border-color);
         }
 
         header h1 {
-            font-size: 2.8rem;
-            letter-spacing: -0.02em;
+            font-size: 3rem;
+            letter-spacing: -0.03em;
             margin-bottom: 15px;
             color: #ffffff;
-            text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            text-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
         }
 
         header p.subtitle {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: #e2e8f0;
             max-width: 750px;
             margin: 0 auto;
@@ -80,7 +96,6 @@
             padding: 50px 20px;
         }
 
-        /* Tab Navigation Bar */
         .tabs-nav {
             display: flex;
             flex-wrap: wrap;
@@ -114,7 +129,6 @@
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
         }
 
-        /* Tab Content Panels - Hidden by default, forced display via active class */
         .tab-content {
             display: none !important;
         }
@@ -154,7 +168,7 @@
         .badge-purple { background: var(--accent-purple); }
 
         .article-card h3 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: #ffffff;
             margin-bottom: 12px;
         }
@@ -186,6 +200,7 @@
             font-weight: bold;
             font-size: 0.9rem;
             margin-top: 10px;
+            transition: opacity 0.2s;
         }
 
         .action-link:hover {
@@ -206,7 +221,11 @@
 <body>
 
 <div class="nav-bar">
-    <a href="sap-hub.html">&rarr; Go to SAP Process Orchestration Hub</a>
+    <a href="index.html" class="nav-brand">⚡ The Continuous Node</a>
+    <div class="nav-links">
+        <a href="sap-hub.html">SAP Hub</a>
+        <a href="research.html">Research</a>
+    </div>
 </div>
 
 <header>
@@ -216,112 +235,62 @@
 
 <div class="container">
 
-    <!-- Interactive Tabs Navigation Bar -->
     <div class="tabs-nav">
         <button class="tab-btn active" onclick="switchTab(event, 'overview')">Overview & Hubs</button>
-        <button class="tab-btn" onclick="switchTab(event, 'projects')">Project Data & Repositories</button>
-        <button class="tab-btn" onclick="switchTab(event, 'cycle-existence')">Cycle of Existence</button>
         <button class="tab-btn" onclick="switchTab(event, 'architect-path')">SAP Integration Architect Roadmap</button>
     </div>
 
-    <!-- TAB 1: Overview & Hubs -->
+    <!-- TAB 1: Overview -->
     <div id="overview" class="tab-content active">
         <div class="article-card">
             <span class="badge">Master Index</span>
-            <h3>Welcome to The Continuous Node</h3>
-            <p>Explore our specialized documentation hubs covering legacy middleware optimization, modern cloud integration suites, and architectural roadmaps.</p>
+            <h3>Welcome to Enterprise Architecture Hub</h3>
+            <p>Explore specialized documentation hubs covering legacy middleware optimization, modern cloud integration suites, process orchestration, and evolutionary system patterns.</p>
             <a href="sap-hub.html" class="action-link">Open SAP Process Orchestration Hub &rarr;</a>
         </div>
-    </div>
-
-    <!-- TAB 2: Project Data & Repositories -->
-    <div id="projects" class="tab-content">
         <div class="article-card">
-            <span class="badge badge-green">Project Index</span>
-            <h3>Active Integration & Architecture Projects</h3>
-            <p>This section maintains the repository logs, mapping templates, and configuration payloads deployed across enterprise environments.</p>
-        </div>
-        <div class="article-card">
-            <span class="badge">Module Registry</span>
-            <h3>Core Project Documentation</h3>
-            <ul>
-                <li><strong>SAP PI/PO Migration Frameworks:</strong> Automated asset discovery and interface documentation setups.</li>
-                <li><strong>XSLT & Java UDF Repositories:</strong> Reusable transformation modules for B2B, EDIFACT, and IDoc payload mappings.</li>
-                <li><strong>Cloud Integration Packages:</strong> Pre-configured SAP CPI iFlow templates for enterprise service buses.</li>
-            </ul>
-            <a href="sap-pi-po-xslt-mapping.html" class="action-link">View XSLT Mapping Documentation &rarr;</a>
-        </div>
-    </div>
-
-    <!-- TAB 3: Cycle of Existence (Restored) -->
-    <div id="cycle-existence" class="tab-content">
-        <div class="article-card">
-            <span class="badge badge-purple">Core Framework</span>
+            <span class="badge badge-purple">Research Division</span>
             <h3>The Cycle of Existence</h3>
-            <p>Exploring the fundamental lifecycle frameworks governing complex systems, data flow persistence, transformation states, and evolutionary loops across digital architectures.</p>
-        </div>
-        <div class="article-card">
-            <span class="badge">Lifecycle Phases</span>
-            <h3>Stages of System & Data Evolution</h3>
-            <ul>
-                <li><strong>Genesis & Inception:</strong> The initial architectural blueprint, object definitions, and data structures mapped in design environments like the ESR.</li>
-                <li><strong>Runtime Execution & Transformation:</strong> Active message processing, XSLT translations, QoS queue management, and state changes.</li>
-                <li><strong>Archival & Decongestion:</strong> Database housekeeping, message log deletion, and long-term storage tracking.</li>
-            </ul>
+            <p>Examine lifecycle frameworks governing complex digital systems, state transitions, runtime transformations, and architectural feedback loops.</p>
+            <a href="research.html" class="action-link">Read Research Paper &rarr;</a>
         </div>
     </div>
 
-    <!-- TAB 4: SAP Integration Architect Roadmap -->
+    <!-- TAB 2: Architect Roadmap -->
     <div id="architect-path" class="tab-content">
-        
         <div class="article-card">
             <span class="badge badge-purple">Career Roadmap</span>
             <h3>How to Become an Elite SAP Integration Architect (PI/PO & CPI)</h3>
-            <p>Becoming an SAP Integration Architect requires moving beyond basic implementation to mastering enterprise-wide strategy, hybrid landscape orchestration, cloud modernization, and governance. Here is the comprehensive roadmap to master both legacy on-premise platforms and modern cloud architectures.</p>
+            <p>Becoming an SAP Integration Architect requires moving beyond basic implementation to mastering enterprise-wide strategy, hybrid landscape orchestration, cloud modernization, and governance.</p>
         </div>
 
         <div class="article-card">
             <span class="badge">Phase 1</span>
             <h3>Mastering On-Premise SAP PI/PO & Single-Stack Architecture</h3>
-            <p>Your foundation starts with understanding legacy and modern single-stack enterprise integration:</p>
             <ul>
                 <li><strong>Core Landscapes:</strong> Master the System Landscape Directory (SLD), Enterprise Services Repository (ESR), and Integration Directory (ID).</li>
                 <li><strong>Advanced Adapter Engine Extended (AEX):</strong> Understand high-speed Java-stack execution without ABAP overhead.</li>
-                <li><strong>Connectivity & QoS:</strong> Configure inbound/outbound channels for RFC, REST, SOAP, IDoc, and SFTP. Master Exactly Once (EO) and Exactly Once in Order (EOIO) queue handling (`SMQ1`, `SMQ2`, `SXI_MONI`).</li>
+                <li><strong>Connectivity & QoS:</strong> Configure inbound/outbound channels for RFC, REST, SOAP, IDoc, and SFTP with Exactly Once guarantees.</li>
             </ul>
         </div>
 
         <div class="article-card">
             <span class="badge badge-purple">Phase 2</span>
             <h3>Process & Decision Orchestration (BPM & BRM)</h3>
-            <p>Architecture involves more than passing data files—it requires workflow coordination and business logic governance:</p>
             <ul>
-                <li><strong>Business Process Management (BPM):</strong> Learn to model end-to-end human and automated multi-step workflows using BPMN standards and process-driven interactions.</li>
-                <li><strong>Business Rules Management (BRM):</strong> Decouple volatile corporate policies from code using decision tables and rule sets for dynamic runtime evaluations.</li>
+                <li><strong>Business Process Management (BPM):</strong> Model multi-step human and automated workflows using BPMN standards.</li>
+                <li><strong>Business Rules Management (BRM):</strong> Decouple volatile business logic using decision tables and rule sets.</li>
             </ul>
         </div>
 
         <div class="article-card">
             <span class="badge badge-green">Phase 3</span>
             <h3>Cloud Integration & BTP Masterclass (SAP CPI / Integration Suite)</h3>
-            <p>Transition your skills from on-premise middleware to modern cloud architectures:</p>
             <ul>
-                <li><strong>Apache Camel & iFlows:</strong> Master integration flow design patterns, content modifiers, splitters, aggregators, and exception sub-processes.</li>
-                <li><strong>Groovy Scripting:</strong> Write custom scripts for advanced header manipulation, payload parsing, token generation, and secure routing.</li>
-                <li><strong>Cloud Connectors & BTP:</strong> Manage tenant provisioning, secure agent setups, and OData/SOAP/SuccessFactors connectivity.</li>
+                <li><strong>Apache Camel & iFlows:</strong> Master integration patterns, content modifiers, splitters, and exception handling.</li>
+                <li><strong>Groovy Scripting:</strong> Write scripts for custom payload processing, header manipulation, and security tokens.</li>
             </ul>
         </div>
-
-        <div class="article-card">
-            <span class="badge" style="background: #ef4444;">Phase 4</span>
-            <h3>Architectural Strategy, Governance & Migration</h3>
-            <p>At the architect level, your focus shifts to enterprise strategy:</p>
-            <ul>
-                <li><strong>Clean Core Strategy:</strong> Enforce API-led connectivity, event-driven architectures, and pre-packaged cloud integration content.</li>
-                <li><strong>Migration Roadmaps:</strong> Design migration paths from dual-stack PI/PO to SAP Integration Suite on BTP using official assessment frameworks.</li>
-            </ul>
-        </div>
-
     </div>
 
 </div>
@@ -337,18 +306,15 @@
             contents[i].style.display = "none";
             contents[i].classList.remove("active");
         }
-
         const buttons = document.getElementsByClassName("tab-btn");
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].classList.remove("active");
         }
-
         const targetTab = document.getElementById(tabName);
         if (targetTab) {
             targetTab.style.display = "block";
             targetTab.classList.add("active");
         }
-        
         evt.currentTarget.classList.add("active");
     }
 </script>
