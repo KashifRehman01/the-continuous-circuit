@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAP PI/PO & Modern Integration Hub | The Continuous Node</title>
+    <title>SAP Process Orchestration Master Curriculum | The Continuous Node</title>
     <style>
         :root {
             --bg-color: #0b0d12;
@@ -205,83 +205,80 @@
 </div>
 
 <header>
-    <h1>SAP PI/PO & Integration Hub</h1>
-    <p class="subtitle">Comprehensive reference exploring core architecture, automated data transfers, protocol routing, mapping frameworks, and enterprise modernization strategies.</p>
+    <h1>SAP Process Orchestration Hub</h1>
+    <p class="subtitle">Comprehensive curriculum covering single-stack Java execution, BPMN standards, business rules orchestration, and enterprise connectivity.</p>
 </header>
 
 <div class="container">
 
     <!-- Interactive Tabs Navigation -->
     <div class="tabs-nav">
-        <button class="tab-btn active" onclick="switchTab(event, 'overview')">1. Overview & Core Benefits</button>
-        <button class="tab-btn" onclick="switchTab(event, 'architecture')">2. Architecture & Protocols</button>
-        <button class="tab-btn" onclick="switchTab(event, 'mapping')">3. Advanced Mapping & ESR</button>
-        <button class="tab-btn" onclick="switchTab(event, 'modernization')">4. Modernization & Alternatives</button>
+        <button class="tab-btn active" onclick="switchTab(event, 'foundations')">1. Architecture & Core Stack</button>
+        <button class="tab-btn" onclick="switchTab(event, 'bpm')">2. Business Process Management (BPM)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'brm')">3. Business Rules Management (BRM)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'mapping')">4. AEX & Integration Flows</button>
     </div>
 
-    <!-- TAB 1: Overview & Core Benefits -->
-    <div id="overview" class="tab-content active">
+    <!-- TAB 1: Architecture & Core Stack -->
+    <div id="foundations" class="tab-content active">
         <div class="article-card">
-            <span class="badge">Core Purpose</span>
-            <h3>What Is SAP PI/PO?</h3>
-            <p>SAP Process Integration (PI) and Process Orchestration (PO) serve as enterprise-grade middleware software designed specifically to integrate legacy systems, applications, and external databases with the core SAP stack. It allows organizations to build, execute, and monitor interfaces seamlessly across heterogeneous landscapes.</p>
-        </div>
-        <div class="article-card">
-            <span class="badge badge-green">Enterprise Advantages</span>
-            <h3>Why Enterprises Leverage SAP PI/PO</h3>
-            <p>Core operational benefits delivered by centralized middleware architectures include:</p>
+            <span class="badge">Architecture Overview</span>
+            <h3>Single-Stack Java Foundation</h3>
+            <p>SAP Process Orchestration is engineered as a unified package solution combining three powerful capabilities into a single Java stack structure:</p>
             <ul>
-                <li><strong>Unified Data Flow:</strong> Breaks down functional silos by letting data move smoothly between modern and legacy apps.</li>
-                <li><strong>Centralized Integration:</strong> Eliminates fragmented point-to-point connections by establishing a single managed orchestration hub.</li>
-                <li><strong>Complete Automation:</strong> Automates data transfers across systems, ensuring synchronized records in all locations.</li>
-                <li><strong>Enhanced Decision-Making:</strong> Empowers management with accurate, real-time data accessibility to respond proactively to shifting market demands.</li>
+                <li><strong>Single Java Stack Efficiency:</strong> Eliminates the traditional dual ABAP/Java maintenance footprint, maximizing runtime throughput.</li>
+                <li><strong>Integrated Solution Suite:</strong> Merges process automation, business decision logic, and high-speed message integration seamlessly.</li>
+                <li><strong>Standardized Modeling:</strong> Uses graphical design tools aligned with modern integration guidelines and enterprise frameworks.</li>
             </ul>
         </div>
     </div>
 
-    <!-- TAB 2: Architecture & Protocols -->
-    <div id="architecture" class="tab-content">
+    <!-- TAB 2: Business Process Management (BPM) -->
+    <div id="bpm" class="tab-content">
         <div class="article-card">
-            <span class="badge">Architecture</span>
-            <h3>Core System Landscape & Data Routing</h3>
-            <p>SAP PI/PO links different platforms by routing messages using standardized communication protocols like <strong>sFTP</strong> and <strong>SOAP</strong>. Key architectural layers include:</p>
+            <span class="badge badge-purple">Process Orchestration</span>
+            <h3>Designing Workflows with Business Process Management (BPM)</h3>
+            <p>SAP BPM allows developers and architects to design, execute, and monitor end-to-end business processes:</p>
             <ul>
-                <li><strong>System Landscape Directory (SLD):</strong> The central technical directory cataloging software components and systems.</li>
-                <li><strong>Enterprise Services Repository (ESR):</strong> Design-time environment housing message types, data types, and mapping definitions.</li>
-                <li><strong>Integration Directory (ID):</strong> Configuration layer mapping routing rules, communication partners, and channels.</li>
-                <li><strong>Advanced Adapter Engine Extended (AEX):</strong> High-speed Java runtime engine optimizing message handling without ABAP stack overhead.</li>
+                <li><strong>BPMN Standards:</strong> Leverages Business Process Model and Notation standards for clear graphical documentation.</li>
+                <li><strong>Pools and Lanes:</strong> Structures activities and responsibilities across system boundaries and organizational roles.</li>
+                <li><strong>User Interaction:</strong> Embeds user interfaces (such as SAPUI5 or WebDynpro) to manage manual review and approval tasks within a process instance.</li>
             </ul>
         </div>
     </div>
 
-    <!-- TAB 3: Mapping & ESR -->
+    <!-- TAB 3: Business Rules Management (BRM) -->
+    <div id="brm" class="tab-content">
+        <div class="article-card">
+            <span class="badge badge-green">Decision Automation</span>
+            <h3>Automating Logic with Business Rules Management (BRM)</h3>
+            <p>BRM enables organizations to separate volatile decision logic from core process flows:</p>
+            <ul>
+                <li><strong>Dynamic Execution:</strong> Automatically evaluates rules for pricing, routing, approvals, and compliance policies.</li>
+                <li><strong>Decision Tables:</strong> Organizes complex matrix logic cleanly for business users to modify without changing hardcoded application code.</li>
+                <li><strong>Operational Agility:</strong> Instantly adapts automated actions to shifting regulatory requirements and market strategies.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB 4: AEX & Integration Flows -->
     <div id="mapping" class="tab-content">
         <div class="article-card">
-            <span class="badge badge-purple">Featured Technical Guide</span>
-            <h3>Mastering SAP PI/PO XSLT Mapping & External Definitions</h3>
-            <p>A complete technical walkthrough on resolving transformer engine exceptions, structuring multi-message mapping envelopes, and packaging dual schemas for warehouse automation systems.</p>
-            <a href="sap-pi-po-xslt-mapping.html" class="action-link">Read Full Guide &rarr;</a>
-        </div>
-        <div class="article-card">
-            <span class="badge badge-purple">Data Transformations</span>
-            <h3>Data Formatting and Transformation Best Practices</h3>
-            <p>Efficient mapping programs convert payloads between diverse formats—such as XML, JSON, or EDI—ensuring absolute compatibility across disparate third-party applications and backend ERPs.</p>
-        </div>
-    </div>
-
-    <!-- TAB 4: Modernization & Alternatives -->
-    <div id="modernization" class="tab-content">
-        <div class="article-card">
-            <span class="badge" style="background:#8b5cf6;">Evolving Architectures</span>
-            <h3>Navigating Digital Transformation & Modern Integration Alternatives</h3>
-            <p>As enterprises prepare for evolving technology lifecycles and platform sunsets, modern alternatives like cloud-native integration hubs and low-code automated connectivity tools are increasingly utilized to bridge SAP ERP environments with external services securely and rapidly.</p>
+            <span class="badge">Connectivity & Configuration</span>
+            <h3>Advanced Adapter Engine Extended (AEX) & iFlows</h3>
+            <p>AEX handles system-to-system messaging via graphical configurations and adapter channels:</p>
+            <ul>
+                <li><strong>Integration Flows (iFlows):</strong> Streamlines message configuration patterns graphically from sender to receiver.</li>
+                <li><strong>Design Tools:</strong> Utilizes the Enterprise Services Repository (ESR) and Integration Directory (ID) for complete mapping and routing management.</li>
+            </ul>
+            <a href="sap-pi-po-xslt-mapping.html" class="action-link">Explore XSLT Mapping Guide &rarr;</a>
         </div>
     </div>
 
 </div>
 
 <footer>
-    <p>&copy; 2026 The Continuous Node Project — SAP Integration Resource Hub</p>
+    <p>&copy; 2026 The Continuous Node Project — SAP Process Orchestration Hub</p>
 </footer>
 
 <script>
