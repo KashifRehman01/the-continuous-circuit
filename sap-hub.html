@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAP Process Orchestration Master Curriculum | The Continuous Node</title>
+    <title>SAP Process Orchestration Hub | The Continuous Node</title>
     
     <!-- Google AdSense Verification Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1378964403590324"
@@ -38,6 +38,9 @@
             background: var(--card-bg);
             border-bottom: 1px solid var(--border-color);
             padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .nav-bar a {
@@ -45,10 +48,6 @@
             text-decoration: none;
             font-weight: bold;
             font-size: 0.95rem;
-        }
-
-        .nav-bar a:hover {
-            text-decoration: underline;
         }
 
         header {
@@ -80,7 +79,6 @@
             padding: 50px 20px;
         }
 
-        /* Tab Navigation Bar */
         .tabs-nav {
             display: flex;
             flex-wrap: wrap;
@@ -114,7 +112,6 @@
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
         }
 
-        /* Tab Content Panels - Hidden by default, forced display via active class */
         .tab-content {
             display: none !important;
         }
@@ -165,33 +162,6 @@
             margin-bottom: 15px;
         }
 
-        .article-card ul {
-            margin-left: 20px;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-        }
-
-        .article-card ul li {
-            margin-bottom: 8px;
-        }
-
-        .action-link {
-            display: inline-block;
-            background: var(--accent-blue);
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
-
-        .action-link:hover {
-            opacity: 0.9;
-        }
-
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -207,6 +177,7 @@
 
 <div class="nav-bar">
     <a href="index.html">&larr; Back to Master Landing Page</a>
+    <a href="research.html">Research &rarr;</a>
 </div>
 
 <header>
@@ -216,7 +187,6 @@
 
 <div class="container">
 
-    <!-- Interactive Tabs Navigation -->
     <div class="tabs-nav">
         <button class="tab-btn active" onclick="switchTab(event, 'foundations')">1. Introducing Process Orchestration</button>
         <button class="tab-btn" onclick="switchTab(event, 'bpm')">2. Business Process Management (BPM)</button>
@@ -224,66 +194,63 @@
         <button class="tab-btn" onclick="switchTab(event, 'mapping')">4. AEX & Integration Flows</button>
     </div>
 
-    <!-- TAB 1: Introducing Process Orchestration (All 5 sub-topics covered in depth) -->
+    <!-- TAB 1: Introducing Process Orchestration -->
     <div id="foundations" class="tab-content active">
-        
         <div class="article-card">
             <span class="badge">Core Introduction</span>
             <h3>Defining Process Orchestration</h3>
-            <p>SAP Process Orchestration (PO) is an enterprise-grade middleware solution designed to unify and coordinate complex business processes across disparate software landscapes. By transitioning away from fragmented, rigid point-to-point connections, Process Orchestration provides a centralized platform that seamlessly bridges legacy infrastructure with modern cloud applications. It empowers organizations to build, execute, monitor, and adapt automated workflows dynamically, drastically lowering total cost of ownership while maximizing operational flexibility.</p>
+            <p>SAP Process Orchestration (PO) is an enterprise-grade middleware solution designed to unify and coordinate complex business processes across disparate software landscapes. It provides a centralized platform that seamlessly bridges legacy infrastructure with modern cloud applications.</p>
         </div>
 
         <div class="article-card">
             <span class="badge badge-purple">Workflow Control</span>
             <h3>Outlining Business Process Management (BPM)</h3>
-            <p>Business Process Management (BPM) acts as the engine for end-to-end task coordination within SAP PO. Utilizing graphical Business Process Model and Notation (BPMN) standards inside the developer studio, SAP BPM enables developers to design structured multi-step workflows. It handles automated system triggers alongside human intervention loops—such as user task approvals via the centralized BPM Inbox—ensuring accountability, visibility, and precise execution timelines across enterprise operations.</p>
+            <p>Business Process Management acts as the engine for end-to-end task coordination within SAP PO. Utilizing graphical BPMN standards, SAP BPM enables developers to design structured multi-step workflows with automated triggers and human approval loops.</p>
         </div>
 
         <div class="article-card">
             <span class="badge badge-green">Decision Logic</span>
             <h3>Outlining Business Rules Management (BRM)</h3>
-            <p>Business Rules Management (BRM) decouples volatile corporate policies and decision frameworks from rigid application code. Instead of hardcoding conditions directly into programs, BRM stores them as manageable business rules and interactive decision tables. This allows business analysts and technical teams to modify pricing matrices, validation parameters, and routing logic instantly without needing to redeploy or alter core integration flows.</p>
+            <p>Business Rules Management decouples volatile corporate policies from rigid application code, storing rules in manageable decision tables so teams can update parameters without redeploying code.</p>
         </div>
 
         <div class="article-card">
             <span class="badge">Connectivity Layer</span>
             <h3>Outlining Advanced Adapter Engine Extended (AEX)</h3>
-            <p>The Advanced Adapter Engine Extended (AEX) serves as the high-speed, Java-only runtime engine of SAP Process Orchestration. By abandoning the legacy dual-stack (ABAP and Java) structure, AEX delivers high-volume data throughput and efficient protocol conversions. It supports standard enterprise connectivity options—including REST, SOAP, sFTP, RFC, and IDoc—allowing seamless message exchanges and secure payload mapping.</p>
+            <p>AEX serves as the high-speed Java-only runtime engine of SAP PO, delivering high-volume data throughput and robust protocol conversions across REST, SOAP, SFTP, RFC, and IDoc.</p>
         </div>
 
         <div class="article-card">
             <span class="badge" style="background:#8b5cf6;">Synergy & Execution</span>
             <h3>Performing BPM with BRM and AEX</h3>
-            <p>The true power of SAP Process Orchestration lies in the seamless collaboration of BPM, BRM, and AEX on a unified single Java stack. When an automated workflow runs in <strong>BPM</strong>, it can dynamically invoke business logic evaluated by <strong>BRM</strong> to make automated routing or validation decisions. Simultaneously, it hands off system-to-system message transmissions and transformations to <strong>AEX</strong>. This integrated architecture unifies process automation, decision governance, and reliable messaging into a single, cohesive ecosystem.</p>
+            <p>Workflows running in <strong>BPM</strong> dynamically invoke business logic evaluated by <strong>BRM</strong> while handing off system-to-system message transmissions to <strong>AEX</strong>, creating a cohesive automation ecosystem.</p>
         </div>
-
     </div>
 
-    <!-- TAB 2: Business Process Management (BPM) -->
+    <!-- TAB 2: BPM -->
     <div id="bpm" class="tab-content">
         <div class="article-card">
             <span class="badge badge-purple">Process Orchestration</span>
             <h3>Deep Dive into SAP BPM</h3>
-            <p>SAP BPM allows architects to model workflows using graphical tools, manage task configurations, and deploy human-centric interaction UIs (such as SAPUI5 apps) to handle operational exceptions cleanly.</p>
+            <p>SAP BPM allows architects to model workflows using graphical tools, manage task configurations, and deploy human-centric interaction UIs to handle operational exceptions cleanly.</p>
         </div>
     </div>
 
-    <!-- TAB 3: Business Rules Management (BRM) -->
+    <!-- TAB 3: BRM -->
     <div id="brm" class="tab-content">
         <div class="article-card">
             <span class="badge badge-green">Decision Automation</span>
             <h3>Mastering Rules Composer & Rules Manager</h3>
-            <p>Using the Rules Composer and Rules Manager, developers can build rule flows, set up decision tables, and maintain version control over corporate logic parameters securely inside the Java stack.</p>
+            <p>Build rule flows, set up decision tables, and maintain version control over corporate logic parameters securely inside the Java stack.</p>
         </div>
     </div>
 
-    <!-- TAB 4: AEX & Integration Flows -->
+    <!-- TAB 4: AEX -->
     <div id="mapping" class="tab-content">
         <div class="article-card">
             <span class="badge">Connectivity & Configuration</span>
             <h3>Advanced Adapter Engine Extended (AEX) & iFlows</h3>
-            <p>AEX handles system-to-system messaging via graphical Integration Flows (iFlows) and adapter configurations, backed by the Enterprise Services Repository (ESR) and Integration Directory (ID).</p>
-            <a href="sap-pi-po-xslt-mapping.html" class="action-link">Explore XSLT Mapping Guide &rarr;</a>
+            <p>AEX handles system-to-system messaging via graphical Integration Flows and adapter configurations backed by the Enterprise Services Repository.</p>
         </div>
     </div>
 
@@ -300,18 +267,15 @@
             contents[i].style.display = "none";
             contents[i].classList.remove("active");
         }
-
         const buttons = document.getElementsByClassName("tab-btn");
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].classList.remove("active");
         }
-
         const targetTab = document.getElementById(tabName);
         if (targetTab) {
             targetTab.style.display = "block";
             targetTab.classList.add("active");
         }
-        
         evt.currentTarget.classList.add("active");
     }
 </script>
