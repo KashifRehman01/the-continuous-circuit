@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Cycle of Existence | Research & Evolutionary Loops</title>
+    
+    <!-- Google AdSense Verification Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1378964403590324"
+         crossorigin="anonymous"></script>
+
     <style>
         :root {
             --bg-color: #0b0d12;
@@ -109,13 +114,13 @@
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
         }
 
-        /* Tab Content Panels */
+        /* Tab Content Panels - Hidden by default, forced display via active class */
         .tab-content {
-            display: none;
+            display: none !important;
         }
 
         .tab-content.active {
-            display: block;
+            display: block !important;
         }
 
         .article-card {
@@ -125,6 +130,11 @@
             padding: 30px;
             margin-bottom: 25px;
             transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-blue);
         }
 
         .badge {
@@ -140,19 +150,14 @@
             margin-bottom: 12px;
         }
 
+        .badge-green { background: var(--accent-green); }
+
         .article-card h3 {
             font-size: 1.6rem;
             color: #ffffff;
             margin-bottom: 15px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 10px;
-        }
-
-        .article-card h4 {
-            font-size: 1.2rem;
-            color: #ffffff;
-            margin-top: 20px;
-            margin-bottom: 10px;
         }
 
         .article-card p {
@@ -271,20 +276,17 @@
 
 <script>
     function switchTab(evt, tabName) {
-        // Get all tab content panels
         const contents = document.getElementsByClassName("tab-content");
         for (let i = 0; i < contents.length; i++) {
             contents[i].style.display = "none";
             contents[i].classList.remove("active");
         }
 
-        // Get all tab buttons
         const buttons = document.getElementsByClassName("tab-btn");
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].classList.remove("active");
         }
 
-        // Show the target tab and mark the button as active
         const targetTab = document.getElementById(tabName);
         if (targetTab) {
             targetTab.style.display = "block";
