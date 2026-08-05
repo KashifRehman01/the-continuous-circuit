@@ -219,6 +219,7 @@
     <!-- Interactive Tabs Navigation Bar -->
     <div class="tabs-nav">
         <button class="tab-btn active" onclick="switchTab(event, 'overview')">Overview & Hubs</button>
+        <button class="tab-btn" onclick="switchTab(event, 'projects')">Project Data & Repositories</button>
         <button class="tab-btn" onclick="switchTab(event, 'architect-path')">SAP Integration Architect Roadmap</button>
     </div>
 
@@ -232,7 +233,26 @@
         </div>
     </div>
 
-    <!-- TAB 2: SAP Integration Architect Roadmap -->
+    <!-- TAB 2: Project Data & Repositories (Restored) -->
+    <div id="projects" class="tab-content">
+        <div class="article-card">
+            <span class="badge badge-green">Project Index</span>
+            <h3>Active Integration & Architecture Projects</h3>
+            <p>This section maintains the repository logs, mapping templates, and configuration payloads deployed across enterprise environments.</p>
+        </div>
+        <div class="article-card">
+            <span class="badge">Module Registry</span>
+            <h3>Core Project Documentation</h3>
+            <ul>
+                <li><strong>SAP PI/PO Migration Frameworks:</strong> Automated asset discovery and interface documentation setups.</li>
+                <li><strong>XSLT & Java UDF Repositories:</strong> Reusable transformation modules for B2B, EDIFACT, and IDoc payload mappings.</li>
+                <li><strong>Cloud Integration Packages:</strong> Pre-configured SAP CPI iFlow templates for enterprise service buses.</li>
+            </ul>
+            <a href="sap-pi-po-xslt-mapping.html" class="action-link">View XSLT Mapping Documentation &rarr;</a>
+        </div>
+    </div>
+
+    <!-- TAB 3: SAP Integration Architect Roadmap -->
     <div id="architect-path" class="tab-content">
         
         <div class="article-card">
