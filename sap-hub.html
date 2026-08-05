@@ -116,12 +116,6 @@
 
         .tab-content.active {
             display: block;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .article-card {
@@ -196,23 +190,6 @@
             margin-top: 60px;
         }
     </style>
-    <script>
-        function openTab(evt, tabName) {
-            let i, tabContent, tabBtns;
-            tabContent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabContent.length; i++) {
-                tabContent[i].style.display = "none";
-                tabContent[i].classList.remove("active");
-            }
-            tabBtns = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tabBtns.length; i++) {
-                tabBtns[i].classList.remove("active");
-            }
-            document.getElementById(tabName).style.display = "block";
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
-    </script>
 </head>
 <body>
 
@@ -229,10 +206,10 @@
 
     <!-- Interactive Tabs Navigation -->
     <div class="tabs-nav">
-        <button class="tab-btn active" onclick="openTab(event, 'fundamentals')">1. Fundamentals & Architecture</button>
-        <button class="tab-btn" onclick="openTab(event, 'mapping')">2. Advanced Mapping & ESR</button>
-        <button class="tab-btn" onclick="openTab(event, 'cpi')">3. SAP Cloud Platform Integration (CPI)</button>
-        <button class="tab-btn" onclick="openTab(event, 'troubleshooting')">4. Error Resolution & Monitoring</button>
+        <button class="tab-btn active" onclick="switchTab(event, 'fundamentals')">1. Fundamentals & Architecture</button>
+        <button class="tab-btn" onclick="switchTab(event, 'mapping')">2. Advanced Mapping & ESR</button>
+        <button class="tab-btn" onclick="switchTab(event, 'cpi')">3. SAP Cloud Platform Integration (CPI)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'troubleshooting')">4. Error Resolution & Monitoring</button>
     </div>
 
     <!-- TAB 1: Fundamentals -->
@@ -241,13 +218,13 @@
             <span class="badge">Architecture</span>
             <h3>Understanding SAP PI/PO System Landscape</h3>
             <p>An exhaustive architectural overview of SAP Process Integration (PI) and Process Orchestration (PO), covering the Integration Builder, Integration Directory, System Landscape Directory (SLD), and Advanced Adapter Engine Extended (AEX).</p>
-            <p class="read-more">Comprehensive guide coming online soon &rarr;</p>
+            <span class="read-more">Guide in publication &rarr;</span>
         </div>
         <div class="article-card">
             <span class="badge">Connectivity</span>
             <h3>Mastering Adapters: RFC, REST, SOAP, IDoc, and SFTP</h3>
             <p>Deep-dive configuration guidelines for configuring inbound and outbound communication channels, handling quality-of-service (QoS) guarantees like Exactly Once (EO) and Exactly Once in Order (EOIO).</p>
-            <p class="read-more">Comprehensive guide coming online soon &rarr;</p>
+            <span class="read-more">Guide in publication &rarr;</span>
         </div>
     </div>
 
@@ -263,7 +240,7 @@
             <span class="badge badge-purple">Graphical Mapping</span>
             <h3>Advanced Graphical Message Mapping Functions & User-Defined Functions (UDFs)</h3>
             <p>How to design complex context-handling routines, leverage graphical functions for array transformations, and write robust Java UDFs for string manipulation and lookups.</p>
-            <p class="read-more">Comprehensive guide coming online soon &rarr;</p>
+            <span class="read-more">Guide in publication &rarr;</span>
         </div>
     </div>
 
@@ -273,13 +250,13 @@
             <span class="badge badge-green">Cloud Integration</span>
             <h3>Transitioning from SAP PO to SAP Cloud Integration (CPI)</h3>
             <p>Strategic migration frameworks, tenant provisioning, package structuring, and pattern re-creation from dual-stack or single-stack PI/PO environments to SAP Business Technology Platform (BTP).</p>
-            <p class="read-more">Comprehensive guide coming online soon &rarr;</p>
+            <span class="read-more">Guide in publication &rarr;</span>
         </div>
         <div class="article-card">
             <span class="badge badge-green">CPI Flows</span>
             <h3>Designing Resilient Integration Flows (IFlows) with Groovy Scripting</h3>
             <p>Utilizing Apache Camel expressions, message headers, properties, and custom Groovy scripts to manipulate payloads, handle exceptions, and manage data stores inside SAP CPI.</p>
-            <p class="read-more">Comprehensive guide coming online soon &rarr;</p>
+            <span class="read-more">Guide in publication &rarr;</span>
         </div>
     </div>
 
@@ -289,13 +266,13 @@
             <span class="badge" style="background:#ef4444;">Monitoring & Debugging</span>
             <h3>Troubleshooting Message Monitoring, PVM, and Runtime Exceptions</h3>
             <p>How to use transaction code <code>SXI_MONI</code>, Message Monitor, and Runtime Workbench (RWB) to isolate communication channel stalls, trace payload structures, and reprocess failed asynchronous queues.</p>
-            <p class="read-more">Comprehensive guide coming online soon &rarr;</p>
+            <span class="read-more">Guide in publication &rarr;</span>
         </div>
         <div class="article-card">
             <span class="badge" style="background:#ef4444;">Performance Tuning</span>
             <h3>Optimizing Database Tables and Clearing SXMS_CLUP Jobs</h3>
-            <p>Best practices for maintaining high-volume PI/PO PI database performance, scheduling message archiving jobs, and preventing payload storage table bloat.</p>
-            <p class="read-more">Comprehensive guide coming online soon &rarr;</p>
+            <p>Best practices for maintaining high-volume PI/PO database performance, scheduling message archiving jobs, and preventing payload storage table bloat.</p>
+            <span class="read-more">Guide in publication &rarr;</span>
         </div>
     </div>
 
@@ -304,6 +281,30 @@
 <footer>
     <p>&copy; 2026 The Continuous Node Project — SAP Integration Resource Hub</p>
 </footer>
+
+<!-- Placed at the bottom to guarantee execution on mobile/desktop -->
+<script>
+    function switchTab(evt, tabName) {
+        const contents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < contents.length; i++) {
+            contents[i].style.display = "none";
+            contents[i].classList.remove("active");
+        }
+
+        const buttons = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove("active");
+        }
+
+        const targetTab = document.getElementById(tabName);
+        if (targetTab) {
+            targetTab.style.display = "block";
+            targetTab.classList.add("active");
+        }
+        
+        evt.currentTarget.classList.add("active");
+    }
+</script>
 
 </body>
 </html>
