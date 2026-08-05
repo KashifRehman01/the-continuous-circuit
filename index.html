@@ -220,6 +220,7 @@
     <div class="tabs-nav">
         <button class="tab-btn active" onclick="switchTab(event, 'overview')">Overview & Hubs</button>
         <button class="tab-btn" onclick="switchTab(event, 'projects')">Project Data & Repositories</button>
+        <button class="tab-btn" onclick="switchTab(event, 'cycle-existence')">Cycle of Existence</button>
         <button class="tab-btn" onclick="switchTab(event, 'architect-path')">SAP Integration Architect Roadmap</button>
     </div>
 
@@ -233,7 +234,7 @@
         </div>
     </div>
 
-    <!-- TAB 2: Project Data & Repositories (Restored) -->
+    <!-- TAB 2: Project Data & Repositories -->
     <div id="projects" class="tab-content">
         <div class="article-card">
             <span class="badge badge-green">Project Index</span>
@@ -252,7 +253,25 @@
         </div>
     </div>
 
-    <!-- TAB 3: SAP Integration Architect Roadmap -->
+    <!-- TAB 3: Cycle of Existence (Restored) -->
+    <div id="cycle-existence" class="tab-content">
+        <div class="article-card">
+            <span class="badge badge-purple">Core Framework</span>
+            <h3>The Cycle of Existence</h3>
+            <p>Exploring the fundamental lifecycle frameworks governing complex systems, data flow persistence, transformation states, and evolutionary loops across digital architectures.</p>
+        </div>
+        <div class="article-card">
+            <span class="badge">Lifecycle Phases</span>
+            <h3>Stages of System & Data Evolution</h3>
+            <ul>
+                <li><strong>Genesis & Inception:</strong> The initial architectural blueprint, object definitions, and data structures mapped in design environments like the ESR.</li>
+                <li><strong>Runtime Execution & Transformation:</strong> Active message processing, XSLT translations, QoS queue management, and state changes.</li>
+                <li><strong>Archival & Decongestion:</strong> Database housekeeping, message log deletion, and long-term storage tracking.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB 4: SAP Integration Architect Roadmap -->
     <div id="architect-path" class="tab-content">
         
         <div class="article-card">
