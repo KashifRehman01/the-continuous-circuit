@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering SAP PI/PO XSLT Mapping & External Definitions for Geek+ EWM Integration</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #334155;
+            --code-bg: #1e293b;
+        }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        h1 { font-size: 2.25rem; color: var(--primary); margin-bottom: 20px; line-height: 1.2; }
+        h2 { font-size: 1.5rem; color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-top: 40px; }
+        h3 { font-size: 1.2rem; color: var(--accent); margin-top: 25px; }
+        p { margin-bottom: 20px; font-size: 1.05rem; }
+        .step-badge {
+            background: var(--accent);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .screenshot-container {
+            margin: 25px 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+            text-align: center;
+        }
+        .screenshot-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .caption {
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+            padding: 10px;
+            background: #f1f5f9;
+            border-top: 1px solid #cbd5e1;
+        }
+        pre {
+            background: var(--code-bg);
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+        code { font-family: Consolas, Monaco, monospace; }
+        .alert-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--accent);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Mastering SAP PI/PO XSLT Mapping & External Definitions for Geek+ EWM Integration</h1>
+    <p>Integrating SAP Extended Warehouse Management (EWM) with external automation platforms like Geek+ requires precise handling of multi-message mapping wrappers, rigid schema namespaces, and comprehensive payload transformations. This guide walks through resolving standard transformer engine exceptions, mapping complex outbound picking specifications, and configuring External Definitions step-by-step.</p>
+
+    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 40px 0;">
+
+    <!-- STEP 1 -->
+    <div class="step-badge">Step 1</div>
+    <h2>Diagnosing and Fixing the Transformer Exception</h2>
+    <p>When running operation mapping tests in SAP PO, runtime engine failures often manifest as transformer exceptions. This is typically driven by namespace mismatches between target schemas and multi-message envelope requirements.</p>
+    
+    <div class="screenshot-container">
+        <img src="0fd274ec-b63b-4a20-a718-5c4783c849c5" alt="SAP PO Operation Mapping Transformer Exception Screen">
+        <div class="caption">Figure 1: Initial runtime XSLT transformer exception captured during testing.</div>
+    </div>
+
+    <div class="alert-box">
+        <strong>Root Cause:</strong> Elements inside loops lacked exact qualified namespace declarations matching <code>http://sap.com/xi/XI/SplitAndMerge</code> envelope requirements alongside target schemas.
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step-badge">Step 2</div>
+    <h2>Building the Complete Pick Order XSLT Mapping</h2>
+    <p>To transition from basic inbound putaway structures to advanced outbound pick orders (covering production vs. spare order rules, auto push walls, item sequence lines, and custom batch attributes), apply the following standard-compliant XSLT stylesheet code:</p>
+
+    <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet version="1.0" 
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+    xmlns:ns0="http://sap.com/xi/XI/SplitAndMerge"
+    xmlns:p6="http://mras.com/ewm/geekplus"
+    exclude-result-prefixes=""&gt;
+    
+    &lt;xsl:variable name="FINAL_USER_ID"&gt;testUser&lt;/xsl:variable&gt;
+    &lt;xsl:variable name="FINAL_USER_KEY"&gt;111111&lt;/xsl:variable&gt;
+
+    &lt;xsl:template match="/"&gt;
+        &lt;ns0:Messages&gt;
+            &lt;xsl:for-each select="//*[local-name()='_-SCWM_-E1LTORI']"&gt;
+                &lt;ns0:Message1&gt;
+                    &lt;p6:MT_GeekPlus_PickOrder&gt;
+                        &lt;Geekplus_Pick_Order_Request&gt;
+                            &lt;header&gt;
+                                &lt;warehouse_code&gt;9190&lt;/warehouse_code&gt;
+                                &lt;user_id&gt;&lt;xsl:value-of select="$FINAL_USER_ID"/&gt;&lt;/user_id&gt;
+                                &lt;user_key&gt;&lt;xsl:value-of select="$FINAL_USER_KEY"/&gt;&lt;/user_key&gt;
+                            &lt;/header&gt;
+                            &lt;body&gt;
+                                &lt;order_list&gt;
+                                    &lt;warehouse_code&gt;9190&lt;/warehouse_code&gt;
+                                    &lt;out_order_code&gt;&lt;xsl:value-of select="ancestor::*[local-name()='_-SCWM_-E1LTORH']/*[local-name()='WHO']"/&gt;&lt;/out_order_code&gt;
+                                    &lt;owner_code&gt;&lt;xsl:value-of select="*[local-name()='ZSCWM_WES']/*[local-name()='GOODS_OWNER']"/&gt;&lt;/owner_code&gt;
+                                    &lt;order_type&gt;&lt;xsl:value-of select="*[local-name()='ZSCWM_WES']/*[local-name()='ORDER_TYPE']"/&gt;&lt;/order_type&gt;
+                                    &lt;is_auto_push_wall&gt;
+                                        &lt;xsl:choose&gt;
+                                            &lt;xsl:when test="*[local-name()='ZSCWM_WES']/*[local-name()='ORDER_TYPE'] = '21'"&gt;1&lt;/xsl:when&gt;
+                                            &lt;xsl:otherwise&gt;0&lt;/xsl:otherwise&gt;
+                                        &lt;/xsl:choose&gt;
+                                    &lt;/is_auto_push_wall&gt;
+                                    &lt;sku_list&gt;
+                                        &lt;item&gt;&lt;xsl:value-of select="*[local-name()='TANUM']"/&gt;&lt;/item&gt;
+                                        &lt;sku_code&gt;&lt;xsl:value-of select="*[local-name()='MATNR']"/&gt;&lt;/sku_code&gt;
+                                        &lt;amount&gt;&lt;xsl:value-of select="*[local-name()='VSOLM']"/&gt;&lt;/amount&gt;
+                                        &lt;sku_level&gt;0&lt;/sku_level&gt;
+                                        &lt;sub_sort&gt;&lt;xsl:value-of select="*[local-name()='ZSCWM_WES']/*[local-name()='SUBTOTE']"/&gt;&lt;/sub_sort&gt;
+                                        &lt;sku_reservation_1&gt;&lt;xsl:value-of select="*[local-name()='ALTME']"/&gt;&lt;/sku_reservation_1&gt;
+                                    &lt;/sku_list&gt;
+                                &lt;/order_list&gt;
+                            &lt;/body&gt;
+                        &lt;/Geekplus_Pick_Order_Request&gt;
+                    &lt;/p6:MT_GeekPlus_PickOrder&gt;
+                &lt;/ns0:Message1&gt;
+            &lt;/xsl:for-each&gt;
+        &lt;/ns0:Messages&gt;
+    &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;</code></pre>
+
+    <!-- STEP 3 -->
+    <div class="step-badge">Step 3</div>
+    <h2>Resolving External Definition Parsing Errors</h2>
+    <p>When importing XSD schemas into the Enterprise Services Repository (ESR), parser exceptions like <em>"Error when parsing an XML document (XML document structures must start and end within the same entity)"</em> frequently occur due to truncated multi-file references or unclosed entity brackets.</p>
+
+    <div class="screenshot-container">
+        <img src="2b51dfe2-903a-4c53-bc56-034e98552d84" alt="SAP PO ESR External Definition Parsing Error Screen">
+        <div class="caption">Figure 2: ESR UI tracking parser exceptions during zip bundle ingestion.</div>
+    </div>
+
+    <p>To permanently clear this compilation fault, use a cleanly separated dual-schema package containing <strong>`Schema1.xsd`</strong> (core structures) and <strong>`MainSchema.xsd`</strong> (the envelope wrapper).</p>
+
+    <h3>Core Structure Definition: Schema1.xsd</h3>
+    <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsd:schema targetNamespace="http://mras.com/ewm/geekplus" 
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+            xmlns="http://mras.com/ewm/geekplus" 
+            elementFormDefault="qualified"&gt;
+
+    &lt;xsd:element name="MT_GeekPlus_PickOrder" type="DT_Geekplus_PickOrder_Request"/&gt;
+
+    &lt;xsd:complexType name="DT_Geekplus_PickOrder_Request"&gt;
+        &lt;xsd:sequence&gt;
+            &lt;xsd:element name="Geekplus_Pick_Order_Request"&gt;
+                &lt;xsd:complexType&gt;
+                    &lt;xsd:sequence&gt;
+                        &lt;xsd:element name="header"&gt;
+                            &lt;xsd:complexType&gt;
+                                &lt;xsd:sequence&gt;
+                                    &lt;xsd:element name="warehouse_code" type="xsd:string"/&gt;
+                                    &lt;xsd:element name="user_id" type="xsd:string"/&gt;
+                                    &lt;xsd:element name="user_key" type="xsd:string"/&gt;
+                                &lt;/xsd:sequence&gt;
+                            &lt;/xsd:complexType&gt;
+                        &lt;/xsd:element&gt;
+                        &lt;xsd:element name="body"&gt;
+                            &lt;xsd:complexType&gt;
+                                &lt;xsd:sequence&gt;
+                                    &lt;xsd:element name="order_list" maxOccurs="unbounded"&gt;
+                                        &lt;xsd:complexType&gt;
+                                            &lt;xsd:sequence&gt;
+                                                &lt;xsd:element name="warehouse_code" type="xsd:string"/&gt;
+                                                &lt;xsd:element name="out_order_code" type="xsd:string"/&gt;
+                                                &lt;xsd:element name="owner_code" type="xsd:string"/&gt;
+                                                &lt;xsd:element name="wave_code" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="original_note" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="order_type" type="xsd:string"/&gt;
+                                                &lt;xsd:element name="is_waiting" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="is_allow_lack" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="is_allow_pick_lack" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="is_auto_push_wall" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="can_merge" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="container_type" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="is_allow_split" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="priority" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="waybill_code" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="consignee_name" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="consignee_address" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="consignee_phone" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="total_fee" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="payment_fee" type="xsd:string" minOccurs="0"/&gt;
+                                                &lt;xsd:element name="sku_list" maxOccurs="unbounded"&gt;
+                                                    &lt;xsd:complexType&gt;
+                                                        &lt;xsd:sequence&gt;
+                                                            &lt;xsd:element name="item" type="xsd:string"/&gt;
+                                                            &lt;xsd:element name="sku_code" type="xsd:string"/&gt;
+                                                            &lt;xsd:element name="sku_id" type="xsd:string" minOccurs="0"/&gt;
+                                                            &lt;xsd:element name="amount" type="xsd:string"/&gt;
+                                                            &lt;xsd:element name="sku_level" type="xsd:string"/&gt;
+                                                            &lt;xsd:element name="product_batch" type="xsd:string" minOccurs="0"/&gt;
+                                                            &lt;xsd:element name="production_date" type="xsd:string" minOccurs="0"/&gt;
+                                                            &lt;xsd:element name="expiration_date" type="xsd:string" minOccurs="0"/&gt;
+                                                            &lt;xsd:element name="batch_property05" type="xsd:string" minOccurs="0"/&gt;
+                                                            &lt;xsd:element name="batch_property07" type="xsd:string" minOccurs="0"/&gt;
+                                                            &lt;xsd:element name="batch_property08" type="xsd:string" minOccurs="0"/&gt;
+                                                            &lt;xsd:element name="batch_property09" type="xsd:string" minOccurs="0"/&gt;
+                                                            &lt;xsd:element name="batch_property10" type="xsd:string" minOccurs="0"/&gt;
+                                                            &lt;xsd:element name="batch_property11" type="xsd:string" minOccurs="0"/&gt;
+                                                            &lt;xsd:element name="batch_property12" type="xsd:string" minOccurs="0"/&gt;
+                                                            &lt;xsd:element name="sub_sort" type="xsd:string" minOccurs="0"/&gt;
+                                                            &lt;xsd:element name="sku_reservation_1" type="xsd:string" minOccurs="0"/&gt;
+                                                        &lt;/xsd:sequence&gt;
+                                                    &lt;/xsd:complexType&gt;
+                                                &lt;/xsd:element&gt;
+                                            &lt;/xsd:sequence&gt;
+                                        &lt;/xsd:complexType&gt;
+                                    &lt;/xsd:element&gt;
+                                &lt;/xsd:sequence&gt;
+                            &lt;/xsd:complexType&gt;
+                        &lt;/xsd:element&gt;
+                    &lt;/xsd:sequence&gt;
+                &lt;/xsd:complexType&gt;
+            &lt;/xsd:element&gt;
+        &lt;/xsd:sequence&gt;
+    &lt;/xsd:complexType&gt;
+&lt;/xsd:schema&gt;</code></pre>
+
+    <h3>Multi-Message Envelope Definition: MainSchema.xsd</h3>
+    <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsd:schema targetNamespace="http://sap.com/xi/XI/SplitAndMerge" 
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+            xmlns:p1="http://mras.com/ewm/geekplus" 
+            xmlns="http://sap.com/xi/XI/SplitAndMerge"&gt;
+            
+    &lt;xsd:import namespace="http://mras.com/ewm/geekplus" schemaLocation="Schema1.xsd"/&gt;
+    
+    &lt;xsd:element name="Messages"&gt;
+        &lt;xsd:complexType&gt;
+            &lt;xsd:sequence&gt;
+                &lt;xsd:element name="Message1" form="qualified"&gt;
+                    &lt;xsd:complexType&gt;
+                        &lt;xsd:sequence&gt;
+                            &lt;xsd:element ref="p1:MT_GeekPlus_PickOrder" minOccurs="0" maxOccurs="unbounded"/&gt;
+                        &lt;/xsd:sequence&gt;
+                    &lt;/xsd:complexType&gt;
+                &lt;/xsd:element&gt;
+            &lt;/xsd:sequence&gt;
+        &lt;/xsd:complexType&gt;
+    &lt;/xsd:element&gt;
+&lt;/xsd:schema&gt;</code></pre>
+
+    <div class="alert-box">
+        <strong>Deployment Tip:</strong> Compress both <code>Schema1.xsd</code> and <code>MainSchema.xsd</code> directly into a flat ZIP archive without inner folders, then upload them into your External Definition via the ESR interface, selecting <code>MainSchema.xsd</code> as the root reference target.
+    </div>
+</div>
+
+</body>
+</html>
