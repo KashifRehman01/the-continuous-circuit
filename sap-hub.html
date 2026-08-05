@@ -3,61 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAP PI/PO & CPI Integration Hub | The Continuous Node</title>
+    <title>SAP PI/PO & CPI Master Integration Hub | The Continuous Node</title>
     <style>
         :root {
             --bg-color: #0b0d12;
             --card-bg: #131722;
             --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
             --text-main: #e2e8f0;
             --text-muted: #94a3b8;
             --border-color: #1e293b;
         }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.7;
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 60px 20px;
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
         }
-        h1 { font-size: 2.5rem; color: #ffffff; margin-bottom: 10px; }
-        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 40px; }
+
+        .nav-bar {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 30px;
+        }
+
+        .nav-bar a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .nav-bar a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0284c7 0%, #4c1d95 50%, #064e3b 100%);
+            padding: 70px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            letter-spacing: -0.02em;
+            margin-bottom: 15px;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        header p.subtitle {
+            font-size: 1.2rem;
+            color: #e2e8f0;
+            max-width: 750px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        /* Tab Navigation Bar */
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: #ffffff;
+            border-color: var(--accent-blue);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Tab Content Panels */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .article-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 20px;
-            transition: border-color 0.2s;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
         }
-        .article-card:hover { border-color: var(--accent-blue); }
-        .article-card h3 { margin-bottom: 10px; }
-        .article-card h3 a { color: #ffffff; text-decoration: none; }
-        .article-card h3 a:hover { color: var(--accent-blue); }
-        .article-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px; }
-        .back-link { display: inline-block; margin-bottom: 30px; color: var(--accent-blue); text-decoration: none; font-weight: bold; }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-blue);
+        }
+
+        .badge {
+            background: var(--accent-blue);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .badge-green { background: var(--accent-green); }
+        .badge-purple { background: var(--accent-purple); }
+
+        .article-card h3 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .article-card h3 a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .article-card h3 a:hover {
+            color: var(--accent-blue);
+        }
+
+        .article-card p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            margin-bottom: 20px;
+        }
+
+        .read-more {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background: var(--card-bg);
+            margin-top: 60px;
+        }
     </style>
+    <script>
+        function openTab(evt, tabName) {
+            let i, tabContent, tabBtns;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+                tabContent[i].classList.remove("active");
+            }
+            tabBtns = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 </head>
 <body>
 
-<div class="container">
-    <a href="index.html" class="back-link">&larr; Back to Home</a>
-    <h1>SAP PI/PO & CPI Integration Hub</h1>
-    <p class="subtitle">Collection of technical architectural guides, mapping strategies, and error resolutions.</p>
-
-    <div class="article-card">
-        <span style="background: var(--accent-blue); color: #fff; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold;">SAP PI/PO</span>
-        <h3><a href="sap-pi-po-xslt-mapping.html">Mastering SAP PI/PO XSLT Mapping & External Definitions for Warehouse Automation Integration</a></h3>
-        <p>A comprehensive technical guide resolving standard transformer engine exceptions, mapping complex outbound picking specifications, and configuring External Definitions in ESR.</p>
-        <a href="sap-pi-po-xslt-mapping.html" style="color: var(--accent-blue); text-decoration: none; font-weight: bold; font-size: 0.9rem;">Read Guide &rarr;</a>
-    </div>
+<div class="nav-bar">
+    <a href="index.html">&larr; Back to Master Landing Page</a>
 </div>
+
+<header>
+    <h1>SAP PI/PO & CPI Integration Hub</h1>
+    <p class="subtitle">Complete technical library covering enterprise architecture, fundamental overloads, advanced XSLT mappings, cloud platform integration, and troubleshooting protocols.</p>
+</header>
+
+<div class="container">
+
+    <!-- Interactive Tabs Navigation -->
+    <div class="tabs-nav">
+        <button class="tab-btn active" onclick="openTab(event, 'fundamentals')">1. Fundamentals & Architecture</button>
+        <button class="tab-btn" onclick="openTab(event, 'mapping')">2. Advanced Mapping & ESR</button>
+        <button class="tab-btn" onclick="openTab(event, 'cpi')">3. SAP Cloud Platform Integration (CPI)</button>
+        <button class="tab-btn" onclick="openTab(event, 'troubleshooting')">4. Error Resolution & Monitoring</button>
+    </div>
+
+    <!-- TAB 1: Fundamentals -->
+    <div id="fundamentals" class="tab-content active">
+        <div class="article-card">
+            <span class="badge">Architecture</span>
+            <h3>Understanding SAP PI/PO System Landscape</h3>
+            <p>An exhaustive architectural overview of SAP Process Integration (PI) and Process Orchestration (PO), covering the Integration Builder, Integration Directory, System Landscape Directory (SLD), and Advanced Adapter Engine Extended (AEX).</p>
+            <p class="read-more">Comprehensive guide coming online soon &rarr;</p>
+        </div>
+        <div class="article-card">
+            <span class="badge">Connectivity</span>
+            <h3>Mastering Adapters: RFC, REST, SOAP, IDoc, and SFTP</h3>
+            <p>Deep-dive configuration guidelines for configuring inbound and outbound communication channels, handling quality-of-service (QoS) guarantees like Exactly Once (EO) and Exactly Once in Order (EOIO).</p>
+            <p class="read-more">Comprehensive guide coming online soon &rarr;</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: Mapping & ESR -->
+    <div id="mapping" class="tab-content">
+        <div class="article-card">
+            <span class="badge badge-purple">XSLT & ESR</span>
+            <h3><a href="sap-pi-po-xslt-mapping.html">Mastering SAP PI/PO XSLT Mapping & External Definitions for Warehouse Automation Integration</a></h3>
+            <p>Comprehensive step-by-step documentation resolving standard transformer engine exceptions, handling custom namespace requirements, building dual-schema packages, and deploying external definitions into the Enterprise Services Repository.</p>
+            <a href="sap-pi-po-xslt-mapping.html" class="read-more">Read Full Technical Guide &rarr;</a>
+        </div>
+        <div class="article-card">
+            <span class="badge badge-purple">Graphical Mapping</span>
+            <h3>Advanced Graphical Message Mapping Functions & User-Defined Functions (UDFs)</h3>
+            <p>How to design complex context-handling routines, leverage graphical functions for array transformations, and write robust Java UDFs for string manipulation and lookups.</p>
+            <p class="read-more">Comprehensive guide coming online soon &rarr;</p>
+        </div>
+    </div>
+
+    <!-- TAB 3: CPI -->
+    <div id="cpi" class="tab-content">
+        <div class="article-card">
+            <span class="badge badge-green">Cloud Integration</span>
+            <h3>Transitioning from SAP PO to SAP Cloud Integration (CPI)</h3>
+            <p>Strategic migration frameworks, tenant provisioning, package structuring, and pattern re-creation from dual-stack or single-stack PI/PO environments to SAP Business Technology Platform (BTP).</p>
+            <p class="read-more">Comprehensive guide coming online soon &rarr;</p>
+        </div>
+        <div class="article-card">
+            <span class="badge badge-green">CPI Flows</span>
+            <h3>Designing Resilient Integration Flows (IFlows) with Groovy Scripting</h3>
+            <p>Utilizing Apache Camel expressions, message headers, properties, and custom Groovy scripts to manipulate payloads, handle exceptions, and manage data stores inside SAP CPI.</p>
+            <p class="read-more">Comprehensive guide coming online soon &rarr;</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: Troubleshooting -->
+    <div id="troubleshooting" class="tab-content">
+        <div class="article-card">
+            <span class="badge" style="background:#ef4444;">Monitoring & Debugging</span>
+            <h3>Troubleshooting Message Monitoring, PVM, and Runtime Exceptions</h3>
+            <p>How to use transaction code <code>SXI_MONI</code>, Message Monitor, and Runtime Workbench (RWB) to isolate communication channel stalls, trace payload structures, and reprocess failed asynchronous queues.</p>
+            <p class="read-more">Comprehensive guide coming online soon &rarr;</p>
+        </div>
+        <div class="article-card">
+            <span class="badge" style="background:#ef4444;">Performance Tuning</span>
+            <h3>Optimizing Database Tables and Clearing SXMS_CLUP Jobs</h3>
+            <p>Best practices for maintaining high-volume PI/PO PI database performance, scheduling message archiving jobs, and preventing payload storage table bloat.</p>
+            <p class="read-more">Comprehensive guide coming online soon &rarr;</p>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 The Continuous Node Project — SAP Integration Resource Hub</p>
+</footer>
 
 </body>
 </html>
