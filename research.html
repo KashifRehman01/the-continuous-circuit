@@ -80,49 +80,6 @@
             padding: 50px 20px;
         }
 
-        /* Tab Navigation Bar */
-        .tabs-nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 40px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-        }
-
-        .tab-btn {
-            background: var(--card-bg);
-            color: var(--text-muted);
-            border: 1px solid var(--border-color);
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-
-        .tab-btn:hover {
-            color: #ffffff;
-            border-color: var(--accent-blue);
-        }
-
-        .tab-btn.active {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            color: #ffffff;
-            border-color: transparent;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-        }
-
-        /* Tab Content Panels - Hidden by default, forced display via active class */
-        .tab-content {
-            display: none !important;
-        }
-
-        .tab-content.active {
-            display: block !important;
-        }
-
         .article-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -201,71 +158,62 @@
 
 <div class="container">
 
-    <div class="tabs-nav">
-        <button class="tab-btn active" onclick="switchTab(event, 'main-research')">Main Research</button>
-        <button class="tab-btn" onclick="switchTab(event, 'implementation')">Implementation Details</button>
+    <!-- Section 1: Main Research -->
+    <div class="article-card">
+        <span class="badge">Core Framework</span>
+        <h3>The Cycle of Existence</h3>
+        <p>Exploring the fundamental lifecycle frameworks governing complex systems, data flow persistence, transformation states, and evolutionary loops across digital architectures. This research defines the continuous journey of data and systems from inception to obsolescence and rebirth.</p>
     </div>
 
-    <!-- TAB 1: Main Research -->
-    <div id="main-research" class="tab-content active">
-        <div class="article-card">
-            <span class="badge">Core Framework</span>
-            <h3>The Cycle of Existence</h3>
-            <p>Exploring the fundamental lifecycle frameworks governing complex systems, data flow persistence, transformation states, and evolutionary loops across digital architectures. This research defines the continuous journey of data and systems from inception to obsolescence and rebirth.</p>
-        </div>
-
-        <div class="article-card">
-            <span class="badge">Lifecycle Phases</span>
-            <h3>Stages of System & Data Evolution</h3>
-            <ul>
-                <li><strong>Genesis & Inception:</strong> The initial architectural blueprint, object definitions, and data structures mapped in design environments like the ESR.</li>
-                <li><strong>Runtime Execution & Transformation:</strong> Active message processing, XSLT translations, QoS queue management, and state changes.</li>
-                <li><strong>Archival & Decongestion:</strong> Database housekeeping, message log deletion, and long-term storage tracking.</li>
-            </ul>
-        </div>
-
-        <div class="article-card">
-            <span class="badge">Deep Dive</span>
-            <h3>Phase 1: Genesis</h3>
-            <p>This phase marks the birth of an integration scenario. It involves the precise definition of data contracts, message types, and interfaces within the Enterprise Services Repository (ESR). Architectural decisions made here dictate the system's scalability and flexibility throughout its life.</p>
-        </div>
-
-        <div class="article-card">
-            <span class="badge">Deep Dive</span>
-            <h3>Phase 2: Runtime Execution & Transformation</h3>
-            <p>This is the "active" life of an integration flow. Messages are received, validated, and transformed. Key activities include:</p>
-            <ul>
-                <li><strong>Payload Transformation:</strong> Complex XSLT mappings convert data from one canonical model to another.</li>
-                <li><strong>Message Routing:</strong> Dynamic conditions direct messages to specific end-systems.</li>
-                <li><strong>Quality of Service (QoS):</strong> Ensuring message delivery according to business needs (Exactly Once, Exactly Once in Order).</li>
-            </ul>
-        </div>
-
-        <div class="article-card">
-            <span class="badge">Deep Dive</span>
-            <h3>Phase 3: Archival & Decongestion</h3>
-            <p>All active systems eventually generate clutter. This phase is critical for long-term health and performance. It involves the automated archiving of processed messages and the periodic purging of logs and database tables to prevent performance degradation. Failure to execute this phase leads to system instability.</p>
-        </div>
+    <div class="article-card">
+        <span class="badge">Lifecycle Phases</span>
+        <h3>Stages of System & Data Evolution</h3>
+        <ul>
+            <li><strong>Genesis & Inception:</strong> The initial architectural blueprint, object definitions, and data structures mapped in design environments like the ESR.</li>
+            <li><strong>Runtime Execution & Transformation:</strong> Active message processing, XSLT translations, QoS queue management, and state changes.</li>
+            <li><strong>Archival & Decongestion:</strong> Database housekeeping, message log deletion, and long-term storage tracking.</li>
+        </ul>
     </div>
 
-    <!-- TAB 2: Implementation Details -->
-    <div id="implementation" class="tab-content">
-        <div class="article-card">
-            <span class="badge badge-green">Governance</span>
-            <h3>Implementing the Lifecycle</h3>
-            <p>To successfully operationalize The Cycle of Existence, architects must implement robust governance and automation:</p>
-            <ul>
-                <li><strong>Version Control:</strong> All design objects (ESR) must be under version control to track evolution and allow for rollback.</li>
-                <li><strong>Automated Housekeeping:</strong> Regular jobs must be scheduled for archiving and deletion to manage data growth.</li>
-                <li><strong>Monitoring & Alerting:</strong> Proactive monitoring is required to detect lifecycle disruptions (e.g., message queue congestion).</li>
-            </ul>
-        </div>
+    <div class="article-card">
+        <span class="badge">Deep Dive</span>
+        <h3>Phase 1: Genesis</h3>
+        <p>This phase marks the birth of an integration scenario. It involves the precise definition of data contracts, message types, and interfaces within the Enterprise Services Repository (ESR). Architectural decisions made here dictate the system's scalability and flexibility throughout its life.</p>
+    </div>
 
-         <div class="article-card">
-            <span class="badge badge-green">Evolution</span>
-            <h3>Evolutionary Loops</h3>
-            <p>The cycle is not linear but recursive. Insights gained during the Archival phase often feed back into the Genesis phase, leading to refined architectural patterns and improved design objects. This creates a continuous improvement loop, ensuring systems remain performant and relevant.</p>
-        </div>
+    <div class="article-card">
+        <span class="badge">Deep Dive</span>
+        <h3>Phase 2: Runtime Execution & Transformation</h3>
+        <p>This is the "active" life of an integration flow. Messages are received, validated, and transformed. Key activities include:</p>
+        <ul>
+            <li><strong>Payload Transformation:</strong> Complex XSLT mappings convert data from one canonical model to another.</li>
+            <li><strong>Message Routing:</strong> Dynamic conditions direct messages to specific end-systems.</li>
+            <li><strong>Quality of Service (QoS):</strong> Ensuring message delivery according to business needs (Exactly Once, Exactly Once in Order).</li>
+        </ul>
+    </div>
+
+    <div class="article-card">
+        <span class="badge">Deep Dive</span>
+        <h3>Phase 3: Archival & Decongestion</h3>
+        <p>All active systems eventually generate clutter. This phase is critical for long-term health and performance. It involves the automated archiving of processed messages and the periodic purging of logs and database tables to prevent performance degradation. Failure to execute this phase leads to system instability.</p>
+    </div>
+
+    <!-- Section 2: Implementation Details -->
+    <div class="article-card">
+        <span class="badge badge-green">Governance</span>
+        <h3>Implementing the Lifecycle</h3>
+        <p>To successfully operationalize The Cycle of Existence, architects must implement robust governance and automation:</p>
+        <ul>
+            <li><strong>Version Control:</strong> All design objects (ESR) must be under version control to track evolution and allow for rollback.</li>
+            <li><strong>Automated Housekeeping:</strong> Regular jobs must be scheduled for archiving and deletion to manage data growth.</li>
+            <li><strong>Monitoring & Alerting:</strong> Proactive monitoring is required to detect lifecycle disruptions (e.g., message queue congestion).</li>
+        </ul>
+    </div>
+
+    <div class="article-card">
+        <span class="badge badge-green">Evolution</span>
+        <h3>Evolutionary Loops</h3>
+        <p>The cycle is not linear but recursive. Insights gained during the Archival phase often feed back into the Genesis phase, leading to refined architectural patterns and improved design objects. This creates a continuous improvement loop, ensuring systems remain performant and relevant.</p>
     </div>
 
 </div>
@@ -273,29 +221,6 @@
 <footer>
     <p>&copy; 2026 The Continuous Node Project — Research Division</p>
 </footer>
-
-<script>
-    function switchTab(evt, tabName) {
-        const contents = document.getElementsByClassName("tab-content");
-        for (let i = 0; i < contents.length; i++) {
-            contents[i].style.display = "none";
-            contents[i].classList.remove("active");
-        }
-
-        const buttons = document.getElementsByClassName("tab-btn");
-        for (let i = 0; i < buttons.length; i++) {
-            buttons[i].classList.remove("active");
-        }
-
-        const targetTab = document.getElementById(tabName);
-        if (targetTab) {
-            targetTab.style.display = "block";
-            targetTab.classList.add("active");
-        }
-        
-        evt.currentTarget.classList.add("active");
-    }
-</script>
 
 </body>
 </html>
