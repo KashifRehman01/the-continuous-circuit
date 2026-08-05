@@ -3,22 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Continuous Circuit | A Unified Theory of Matter & Existence</title>
-    <!-- Mermaid.js library for rendering dynamic flowchart diagrams -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            mermaid.initialize({
-                startOnLoad: true,
-                theme: 'dark',
-                flowchart: {
-                    useMaxWidth: true,
-                    htmlLabels: true,
-                    curve: 'basis'
-                }
-            });
-        });
-    </script>
+    <title>The Continuous Node | Unified Systems, SAP Integration & Existence</title>
     <style>
         :root {
             --bg-color: #0b0d12;
@@ -54,7 +39,7 @@
         }
 
         header h1 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             letter-spacing: -0.02em;
             margin-bottom: 15px;
             color: #ffffff;
@@ -70,114 +55,74 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 50px 20px;
+            padding: 60px 20px;
         }
 
-        .intro-box {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--accent-green);
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-        }
-
-        h2 {
-            font-size: 1.8rem;
+        .section-title {
+            font-size: 2rem;
             color: #ffffff;
-            margin-top: 50px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 10px;
         }
 
-        p {
-            margin-bottom: 20px;
-            color: var(--text-main);
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
         }
 
-        /* Flowchart visual container styling */
-        .diagram-wrapper {
+        .hub-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 25px 15px;
-            margin: 30px 0 50px 0;
-            text-align: center;
-            box-shadow: 0 0 25px rgba(59, 130, 246, 0.1);
-        }
-
-        .mermaid {
-            display: flex;
-            justify-content: center;
-        }
-
-        /* Circuit diagram card layout */
-        .circuit-diagram {
+            padding: 30px;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin: 30px 0;
+            justify-content: space-between;
         }
 
-        .step-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        .hub-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
         }
 
-        .step-card:hover {
-            transform: translateX(5px);
-            border-color: var(--accent-green);
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
-        }
-
-        .step-num {
-            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
-            color: #fff;
-            font-weight: bold;
-            font-size: 1.2rem;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
-        }
-
-        .step-content h3 {
-            margin-bottom: 5px;
+        .hub-card h3 {
+            font-size: 1.4rem;
             color: #ffffff;
+            margin-bottom: 15px;
         }
 
-        .step-content p {
-            margin: 0;
+        .hub-card p {
             color: var(--text-muted);
             font-size: 0.95rem;
+            margin-bottom: 20px;
         }
 
-        .citation-box {
-            background-color: #0f172a;
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: #fff;
+            padding: 10px 20px;
             border-radius: 6px;
-            padding: 15px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 10px;
-            border: 1px solid #1e293b;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: opacity 0.2s;
         }
 
-        .citation-box strong {
-            color: var(--accent-blue);
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-green {
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
         }
 
         footer {
@@ -192,111 +137,38 @@
 <body>
 
 <header>
-    <h1>The Continuous Circuit</h1>
-    <p class="subtitle">Quantum Information, Integrated Existence, and the Ecosystem of Matter</p>
+    <h1>The Continuous Node</h1>
+    <p class="subtitle">Exploring the continuous flow between automated technical systems, integration architecture, and existence.</p>
 </header>
 
 <div class="container">
 
-    <div class="intro-box">
-        <p><strong>Thesis Overview:</strong> Existence does not operate on a binary switch between life and dead non-existence. By synthesizing <strong>Quantum Information Conservation</strong>, <strong>Integrated Information Theory (&Phi;)</strong>, <strong>Mycorrhizal Root Networks</strong>, and <strong>Biological Nutrient Cycles</strong>, we reveal a single continuous loop where matter recycles, information persists, and life continuously re-assembles itself.</p>
-    </div>
+    <h2 class="section-title">Explore Hub Categories</h2>
 
-    <h2>Interactive Circuit Map</h2>
-    <div class="diagram-wrapper">
-        <div class="mermaid">
-            graph TD
-                A["1. Quantum Information Blueprint<br/><i>(Conserved Particle Data)</i>"] --> B["2. Decomposition State<br/><i>(Micro-Integrated Φ > 0)</i>"]
-                B --> C["3. Ecological Network<br/><i>(Wood Wide Web & Fungal Grid)</i>"]
-                C --> D["4. Food Chain Synthesis<br/><i>(Organic Re-Assembly)</i>"]
-                D --> E["5. Reproductive Integration<br/><i>(New Conscious Systems)</i>"]
-                E -. Cycle Restarts .-> A
-
-                style A fill:#1e293b,stroke:#10b981,stroke-width:2px,color:#fff
-                style B fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#fff
-                style C fill:#1e293b,stroke:#8b5cf6,stroke-width:2px,color:#fff
-                style D fill:#1e293b,stroke:#10b981,stroke-width:2px,color:#fff
-                style E fill:#1e293b,stroke:#ec4899,stroke-width:2px,color:#fff
-        </div>
-    </div>
-
-    <h2>The 5 Stage Breakdown</h2>
-    <div class="circuit-diagram">
-        <div class="step-card">
-            <div class="step-num">1</div>
-            <div class="step-content">
-                <h3>Quantum Information Blueprint</h3>
-                <p>Every atom carries conserved quantum information. Physical state information cannot be destroyed; upon biological death, information is distributed across surrounding physical systems rather than erased.</p>
+    <div class="hub-grid">
+        <!-- SAP PI/PO & CPI Section -->
+        <div class="hub-card">
+            <div>
+                <h3>SAP PI/PO & CPI Integration</h3>
+                <p>Deep-dive technical guides, XSLT mapping strategies, enterprise service repository configurations, and automated warehouse system patterns.</p>
             </div>
+            <a href="sap-pi-po-xslt-mapping.html" class="btn">View SAP Guides &rarr;</a>
         </div>
-        <div class="step-card">
-            <div class="step-num">2</div>
-            <div class="step-content">
-                <h3>Decomposition & Micro-Integrated State</h3>
-                <p>High-complexity integrated states (&Phi;) decentralize into micro-scale, non-zero integrated states (&Phi; &gt; 0) in soil and organic compost, retaining intrinsic physical interactions.</p>
+
+        <!-- Research Section -->
+        <div class="hub-card">
+            <div>
+                <h3>The Continuous Circuit (Research)</h3>
+                <p>A unified theoretical model exploring quantum information, integrated information theory (Φ), biological recycling, and open system cycles.</p>
             </div>
-        </div>
-        <div class="step-card">
-            <div class="step-num">3</div>
-            <div class="step-content">
-                <h3>The Ecological Network (Wood Wide Web)</h3>
-                <p>Decomposed elements are absorbed by mycorrhizal fungal networks, entering an ecosystem-wide biological communication grid that processes bio-electric and chemical signals.</p>
-            </div>
-        </div>
-        <div class="step-card">
-            <div class="step-num">4</div>
-            <div class="step-content">
-                <h3>Food Chain Synthesis</h3>
-                <p>Plants convert soil nutrients into organic compounds, which pass into the animal kingdom through food chains, carrying recycled atomic mass and structural history.</p>
-            </div>
-        </div>
-        <div class="step-card">
-            <div class="step-num">5</div>
-            <div class="step-content">
-                <h3>Reproductive Re-Integration</h3>
-                <p>Recycled nutrients are incorporated into human biochemistry and gametes (sperm and egg), reconstituting into new neural networks and restarting the conscious loop.</p>
-            </div>
-        </div>
-    </div>
-
-    <h2>Scientific Pillars & Groundwork</h2>
-
-    <h3>1. Quantum Unitarity & Landauer's Principle</h3>
-    <p>In modern physics, quantum unitarity guarantees that total probability and quantum information are strictly conserved. Rolf Landauer proved that information is inherently physical. When biological decay occurs, environmental decoherence scatters particle configurations across the environment, but the underlying data cannot be deleted from the universe.</p>
-    <div class="citation-box">
-        <strong>Pillar Science:</strong> Landauer’s Principle (1961), Quantum No-Hiding Theorem & Black Hole Information Paradox Resolution.
-    </div>
-
-    <h3>2. Quantum Biology & Photosynthesis</h3>
-    <p>Groundbreaking experiments on the Fenna-Matthews-Olson (FMO) complex demonstrated that living organic matter utilizes quantum coherence in warm, wet environments to transfer energy at near 100% efficiency. Organic systems naturally maintain quantum states across biological interfaces.</p>
-    <div class="citation-box">
-        <strong>Pillar Science:</strong> Quantum Coherence in Biological Systems (Nature, FMO Complex Studies).
-    </div>
-
-    <h3>3. Bio-Electric Fungal Communication</h3>
-    <p>Research led by Dr. Suzanne Simard proved that trees exchange carbon, nitrogen, and signals through mycorrhizal fungal networks. Furthermore, studies on fungal electrical activity demonstrate action-potential spikes similar to animal neural impulses, turning soil ecosystems into planetary-scale information processors.</p>
-    <div class="citation-box">
-        <strong>Pillar Science:</strong> Isotopic Tracing ($^{14}\text{C}$ / $^{15}\text{N}$) & Andrew Adamatzky’s Fungal Bio-Electricity Studies.
-    </div>
-
-    <h2>Conclusion</h2>
-    <p>The Continuous Circuit demonstrates that death is not an absolute end to existence, but a vital mechanism for redistributing physical information. The individual ego ends with biological function, but the underlying physical foundation remains an active component of the ecosystem, bound to reconstitute into future life.</p>
-
-    <h2>Technical Notes & SAP Integration</h2>
-    <div class="circuit-diagram">
-        <div class="step-card">
-            <div class="step-num" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6);">SAP</div>
-            <div class="step-content">
-                <h3><a href="sap-pi-po-xslt-mapping.html" style="color: #ffffff; text-decoration: none;">Mastering SAP PI/PO XSLT Mapping & External Definitions for Geek+ EWM Integration &rarr;</a></h3>
-                <p>A comprehensive technical guide resolving standard transformer engine exceptions, mapping complex outbound picking specifications, and configuring External Definitions in ESR.</p>
-            </div>
+            <a href="research.html" class="btn btn-green">Read Research &rarr;</a>
         </div>
     </div>
 
 </div>
 
 <footer>
-    <p>&copy; The Continuous Circuit Project — Published as an Open Theoretical Model</p>
+    <p>&copy; 2026 The Continuous Node — All Rights Reserved.</p>
 </footer>
 
 </body>
