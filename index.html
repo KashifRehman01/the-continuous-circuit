@@ -177,3 +177,61 @@
 
 </body>
 </html>
+<!-- Add this button to your existing tabs navigation in index.html -->
+<div class="tabs-nav">
+    <!-- Existing tabs... -->
+    <button class="tab-btn active" onclick="switchTab(event, 'architect-path')">SAP Integration Architect Roadmap</button>
+</div>
+
+<!-- Add this content panel inside your index.html container -->
+<div id="architect-path" class="tab-content active">
+    
+    <div class="article-card">
+        <span class="badge" style="background: var(--accent-purple);">Career Roadmap</span>
+        <h3>How to Become an Elite SAP Integration Architect (PI/PO & CPI)</h3>
+        <p>Becoming an SAP Integration Architect requires moving beyond basic implementation to mastering enterprise-wide strategy, hybrid landscape orchestration, cloud modernization, and governance. Here is the comprehensive roadmap to master both legacy on-premise platforms and modern cloud architectures.</p>
+    </div>
+
+    <div class="article-card">
+        <span class="badge">Phase 1</span>
+        <h3>Mastering On-Premise SAP PI/PO & Single-Stack Architecture</h3>
+        <p>Your foundation starts with understanding legacy and modern single-stack enterprise integration:</p>
+        <ul>
+            <li><strong>Core Landscapes:</strong> Master the System Landscape Directory (SLD), Enterprise Services Repository (ESR), and Integration Directory (ID).</li>
+            <li><strong>Advanced Adapter Engine Extended (AEX):</strong> Understand high-speed Java-stack execution without ABAP overhead.</li>
+            <li><strong>Connectivity & QoS:</strong> Configure inbound/outbound channels for RFC, REST, SOAP, IDoc, and SFTP. Master Exactly Once (EO) and Exactly Once in Order (EOIO) queue handling (`SMQ1`, `SMQ2`, `SXI_MONI`).</li>
+        </ul>
+    </div>
+
+    <div class="article-card">
+        <span class="badge badge-purple">Phase 2</span>
+        <h3>Process & Decision Orchestration (BPM & BRM)</h3>
+        <p>Architecture involves more than passing data files—it requires workflow coordination and business logic governance:</p>
+        <ul>
+            <li><strong>Business Process Management (BPM):</strong> Learn to model end-to-end human and automated multi-step workflows using BPMN standards and process-driven interactions.</li>
+            <li><strong>Business Rules Management (BRM):</strong> Decouple volatile corporate policies from code using decision tables and rule sets for dynamic runtime evaluations.</li>
+        </ul>
+    </div>
+
+    <div class="article-card">
+        <span class="badge badge-green">Phase 3</span>
+        <h3>Cloud Integration & BTP Masterclass (SAP CPI / Integration Suite)</h3>
+        <p>Transition your skills from on-premise middleware to modern cloud architectures:</p>
+        <ul>
+            <li><strong>Apache Camel & iFlows:</strong> Master integration flow design patterns, content modifiers, splitters, aggregators, and exception sub-processes.</li>
+            <li><strong>Groovy Scripting:</strong> Write custom scripts for advanced header manipulation, payload parsing, token generation, and secure routing.</li>
+            <li><strong>Cloud Connectors & BTP:</strong> Manage tenant provisioning, secure agent setups, and OData/SOAP/SuccessFactors connectivity.</li>
+        </ul>
+    </div>
+
+    <div class="article-card">
+        <span class="badge" style="background: #ef4444;">Phase 4</span>
+        <h3>Architectural Strategy, Governance & Migration</h3>
+        <p>At the architect level, your focus shifts to enterprise strategy:</p>
+        <ul>
+            <li><strong>Clean Core Strategy:</strong> Enforce API-led connectivity, event-driven architectures, and pre-packaged cloud integration content.</li>
+            <li><strong>Migration Roadmaps:</strong> Design migration paths from dual-stack PI/PO to SAP Integration Suite on BTP using official assessment frameworks.</li>
+        </ul>
+    </div>
+
+</div>
