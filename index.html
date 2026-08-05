@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Continuous Node | Unified Systems, SAP Integration & Existence</title>
+    <title>The Continuous Node | Enterprise Integration & Theoretical Research</title>
     <style>
         :root {
             --bg-color: #0b0d12;
             --card-bg: #131722;
-            --accent-green: #10b981;
             --accent-blue: #3b82f6;
             --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
             --text-main: #e2e8f0;
             --text-muted: #94a3b8;
             --border-color: #1e293b;
@@ -27,12 +27,13 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.7;
-            padding: 0;
-            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
-            background: linear-gradient(135deg, #064e3b 0%, #0284c7 50%, #4c1d95 100%);
+            background: linear-gradient(135deg, #0284c7 0%, #4c1d95 50%, #064e3b 100%);
             padding: 80px 20px;
             text-align: center;
             border-bottom: 1px solid var(--border-color);
@@ -43,7 +44,7 @@
             letter-spacing: -0.02em;
             margin-bottom: 15px;
             color: #ffffff;
-            text-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
         }
 
         header p.subtitle {
@@ -58,28 +59,29 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 60px 20px;
+            flex: 1;
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #ffffff;
             margin-bottom: 30px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
+            text-align: center;
+            font-weight: 400;
+            letter-spacing: -0.01em;
         }
 
         .hub-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
 
         .hub-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 30px;
+            padding: 35px 30px;
             transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
@@ -89,30 +91,30 @@
         .hub-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent-blue);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
         }
 
         .hub-card h3 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: #ffffff;
             margin-bottom: 15px;
         }
 
         .hub-card p {
             color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
+            font-size: 0.98rem;
+            margin-bottom: 25px;
         }
 
         .btn {
             display: inline-block;
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
             color: #fff;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 6px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             text-align: center;
             transition: opacity 0.2s;
         }
@@ -131,6 +133,7 @@
             border-top: 1px solid var(--border-color);
             color: var(--text-muted);
             font-size: 0.9rem;
+            background: var(--card-bg);
         }
     </style>
 </head>
@@ -138,37 +141,35 @@
 
 <header>
     <h1>The Continuous Node</h1>
-    <p class="subtitle">Exploring the continuous flow between automated technical systems, integration architecture, and existence.</p>
+    <p class="subtitle">A unified intersection between enterprise integration architectures and systematic research.</p>
 </header>
 
 <div class="container">
-
-    <h2 class="section-title">Explore Hub Categories</h2>
+    <h2 class="section-title">Select a Destination</h2>
 
     <div class="hub-grid">
-        <!-- SAP PI/PO & CPI Section -->
+        <!-- SAP Hub Card -->
         <div class="hub-card">
             <div>
                 <h3>SAP PI/PO & CPI Integration</h3>
-                <p>Deep-dive technical guides, XSLT mapping strategies, enterprise service repository configurations, and automated warehouse system patterns.</p>
+                <p>Explore technical deep dives, XSLT mapping strategies, error resolutions, Enterprise Services Repository schemas, and warehouse automation workflows.</p>
             </div>
-            <a href="sap-pi-po-xslt-mapping.html" class="btn">View SAP Guides &rarr;</a>
+            <a href="sap-hub.html" class="btn">Access SAP Hub &rarr;</a>
         </div>
 
-        <!-- Research Section -->
+        <!-- Research Hub Card -->
         <div class="hub-card">
             <div>
                 <h3>The Continuous Circuit (Research)</h3>
-                <p>A unified theoretical model exploring quantum information, integrated information theory (Φ), biological recycling, and open system cycles.</p>
+                <p>Read the unified theoretical model analyzing quantum information conservation, integrated information theory (Φ), and biological system cycles.</p>
             </div>
             <a href="research.html" class="btn btn-green">Read Research &rarr;</a>
         </div>
     </div>
-
 </div>
 
 <footer>
-    <p>&copy; 2026 The Continuous Node — All Rights Reserved.</p>
+    <p>&copy; 2026 The Continuous Node Project. All Rights Reserved.</p>
 </footer>
 
 </body>
