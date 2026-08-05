@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAP PI/PO & CPI Master Integration Hub | The Continuous Node</title>
+    <title>SAP PI/PO & Modern Integration Hub | The Continuous Node</title>
     <style>
         :root {
             --bg-color: #0b0d12;
@@ -109,7 +109,7 @@
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
         }
 
-        /* Tab Content Panels - Default hidden, overridden by active class */
+        /* Tab Content Panels - Hidden by default, forced display via active class */
         .tab-content {
             display: none !important;
         }
@@ -205,90 +205,76 @@
 </div>
 
 <header>
-    <h1>SAP PI/PO & CPI Integration Hub</h1>
-    <p class="subtitle">Complete technical reference library covering enterprise architecture, protocol configuration, advanced XSLT mappings, and troubleshooting.</p>
+    <h1>SAP PI/PO & Integration Hub</h1>
+    <p class="subtitle">Comprehensive reference exploring core architecture, automated data transfers, protocol routing, mapping frameworks, and enterprise modernization strategies.</p>
 </header>
 
 <div class="container">
 
     <!-- Interactive Tabs Navigation -->
     <div class="tabs-nav">
-        <button class="tab-btn active" onclick="switchTab(event, 'fundamentals')">1. Fundamentals & Architecture</button>
-        <button class="tab-btn" onclick="switchTab(event, 'mapping')">2. Advanced Mapping & ESR</button>
-        <button class="tab-btn" onclick="switchTab(event, 'cpi')">3. SAP Cloud Integration (CPI)</button>
-        <button class="tab-btn" onclick="switchTab(event, 'troubleshooting')">4. Error Resolution & Monitoring</button>
+        <button class="tab-btn active" onclick="switchTab(event, 'overview')">1. Overview & Core Benefits</button>
+        <button class="tab-btn" onclick="switchTab(event, 'architecture')">2. Architecture & Protocols</button>
+        <button class="tab-btn" onclick="switchTab(event, 'mapping')">3. Advanced Mapping & ESR</button>
+        <button class="tab-btn" onclick="switchTab(event, 'modernization')">4. Modernization & Alternatives</button>
     </div>
 
-    <!-- TAB 1: Fundamentals -->
-    <div id="fundamentals" class="tab-content active">
+    <!-- TAB 1: Overview & Core Benefits -->
+    <div id="overview" class="tab-content active">
+        <div class="article-card">
+            <span class="badge">Core Purpose</span>
+            <h3>What Is SAP PI/PO?</h3>
+            <p>SAP Process Integration (PI) and Process Orchestration (PO) serve as enterprise-grade middleware software designed specifically to integrate legacy systems, applications, and external databases with the core SAP stack. It allows organizations to build, execute, and monitor interfaces seamlessly across heterogeneous landscapes.</p>
+        </div>
+        <div class="article-card">
+            <span class="badge badge-green">Enterprise Advantages</span>
+            <h3>Why Enterprises Leverage SAP PI/PO</h3>
+            <p>Core operational benefits delivered by centralized middleware architectures include:</p>
+            <ul>
+                <li><strong>Unified Data Flow:</strong> Breaks down functional silos by letting data move smoothly between modern and legacy apps.</li>
+                <li><strong>Centralized Integration:</strong> Eliminates fragmented point-to-point connections by establishing a single managed orchestration hub.</li>
+                <li><strong>Complete Automation:</strong> Automates data transfers across systems, ensuring synchronized records in all locations.</li>
+                <li><strong>Enhanced Decision-Making:</strong> Empowers management with accurate, real-time data accessibility to respond proactively to shifting market demands.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB 2: Architecture & Protocols -->
+    <div id="architecture" class="tab-content">
         <div class="article-card">
             <span class="badge">Architecture</span>
-            <h3>SAP PI/PO System Landscape & Components</h3>
-            <p>SAP Process Orchestration (PO) combines integration builder, business process management, and business rules framework into a single stack (AEX). Key architectural layers include:</p>
+            <h3>Core System Landscape & Data Routing</h3>
+            <p>SAP PI/PO links different platforms by routing messages using standardized communication protocols like <strong>sFTP</strong> and <strong>SOAP</strong>. Key architectural layers include:</p>
             <ul>
-                <li><strong>System Landscape Directory (SLD):</strong> Central repository of system components, software catalogs, and technical landscapes.</li>
-                <li><strong>Enterprise Services Repository (ESR):</strong> Design-time environment for defining data types, message types, service interfaces, and mappings.</li>
-                <li><strong>Integration Directory (ID):</strong> Configuration time environment for binding design objects to actual communication partners, channels, and routing rules.</li>
-                <li><strong>Advanced Adapter Engine Extended (AEX):</strong> Java-only runtime engine providing high-speed message processing without the traditional ABAP stack overhead.</li>
-            </ul>
-        </div>
-        <div class="article-card">
-            <span class="badge">Connectivity</span>
-            <h3>Configuring Communication Channels & Quality of Service (QoS)</h3>
-            <p>Managing message delivery reliability is core to SAP integration architecture. PI/PO supports three primary Quality of Service modes:</p>
-            <ul>
-                <li><strong>Best Effort (BE):</strong> Synchronous communications where the sender waits for an immediate response. No persistence in the database.</li>
-                <li><strong>Exactly Once (EO):</strong> Asynchronous messaging ensuring messages are processed precisely one time, handled via XML persistent queues.</li>
-                <li><strong>Exactly Once in Order (EOIO):</strong> Asynchronous messaging constrained by queue names to guarantee sequential processing order.</li>
+                <li><strong>System Landscape Directory (SLD):</strong> The central technical directory cataloging software components and systems.</li>
+                <li><strong>Enterprise Services Repository (ESR):</strong> Design-time environment housing message types, data types, and mapping definitions.</li>
+                <li><strong>Integration Directory (ID):</strong> Configuration layer mapping routing rules, communication partners, and channels.</li>
+                <li><strong>Advanced Adapter Engine Extended (AEX):</strong> High-speed Java runtime engine optimizing message handling without ABAP stack overhead.</li>
             </ul>
         </div>
     </div>
 
-    <!-- TAB 2: Mapping & ESR -->
+    <!-- TAB 3: Mapping & ESR -->
     <div id="mapping" class="tab-content">
         <div class="article-card">
-            <span class="badge badge-purple">Featured Guide</span>
+            <span class="badge badge-purple">Featured Technical Guide</span>
             <h3>Mastering SAP PI/PO XSLT Mapping & External Definitions</h3>
             <p>A complete technical walkthrough on resolving transformer engine exceptions, structuring multi-message mapping envelopes, and packaging dual schemas for warehouse automation systems.</p>
             <a href="sap-pi-po-xslt-mapping.html" class="action-link">Read Full Guide &rarr;</a>
         </div>
         <div class="article-card">
-            <span class="badge badge-purple">Mapping Engine</span>
-            <h3>Advanced Graphical Mapping & User-Defined Functions (UDFs)</h3>
-            <p>When graphical standard functions fall short, context-handling functions (like <code>collapseContexts</code>, <code>removeContexts</code>, and <code>splitByValue</code>) maintain node hierarchies. For complex string manipulation, lookups, or mathematical transformations, Java-based UDFs execute custom logic safely within the mapping runtime.</p>
+            <span class="badge badge-purple">Data Transformations</span>
+            <h3>Data Formatting and Transformation Best Practices</h3>
+            <p>Efficient mapping programs convert payloads between diverse formats—such as XML, JSON, or EDI—ensuring absolute compatibility across disparate third-party applications and backend ERPs.</p>
         </div>
     </div>
 
-    <!-- TAB 3: CPI -->
-    <div id="cpi" class="tab-content">
+    <!-- TAB 4: Modernization & Alternatives -->
+    <div id="modernization" class="tab-content">
         <div class="article-card">
-            <span class="badge badge-green">Cloud Transition</span>
-            <h3>SAP Cloud Integration (CPI) Architecture & Tenant Setup</h3>
-            <p>Moving from on-premise PI/PO to the Business Technology Platform (BTP) requires understanding cloud connectors, runtime nodes, and Integration Flow (IFlow) design patterns. CPI relies on Apache Camel routing engine principles to process XML, JSON, and binary payloads across secure cloud endpoints.</p>
-        </div>
-        <div class="article-card">
-            <span class="badge badge-green">Scripting</span>
-            <h3>Using Groovy Scripts in CPI Integration Flows</h3>
-            <p>Groovy scripts provide full programmatic control over message headers, properties, and body payloads inside CPI. Common use cases include custom token generation, dynamic endpoint routing, payload decryption, and granular exception handling.</p>
-        </div>
-    </div>
-
-    <!-- TAB 4: Troubleshooting -->
-    <div id="troubleshooting" class="tab-content">
-        <div class="article-card">
-            <span class="badge" style="background:#ef4444;">Monitoring</span>
-            <h3>Message Monitoring, SXI_MONI, and Queue Management</h3>
-            <p>Essential steps for tracking and debugging failed messages in PI/PO environments:</p>
-            <ul>
-                <li>Use <strong>Message Monitor</strong> in the PVM/AEX home page to inspect message payloads, audit logs, and error descriptions.</li>
-                <li>Check transaction code <code>SMQ2</code> (Inbound Queues) and <code>SMQ1</code> (Outbound Queues) for locked or suspended Queues (SYSFAIL status).</li>
-                <li>Use <code>SXI_MONI</code> for older ABAP-stack proxy message tracing when handling legacy integrations.</li>
-            </ul>
-        </div>
-        <div class="article-card">
-            <span class="badge" style="background:#ef4444;">Performance</span>
-            <h3>Database Optimization & Decongestion</h3>
-            <p>High message volumes can bloat PI/PO database tables (such as `BC_MSG` and payload stores). Regular scheduling of archiving jobs, message deletion reports (<code>RSXMB_DELETE_MESSAGES</code>), and maintaining housekeeping jobs prevents performance degradation.</p>
+            <span class="badge" style="background:#8b5cf6;">Evolving Architectures</span>
+            <h3>Navigating Digital Transformation & Modern Integration Alternatives</h3>
+            <p>As enterprises prepare for evolving technology lifecycles and platform sunsets, modern alternatives like cloud-native integration hubs and low-code automated connectivity tools are increasingly utilized to bridge SAP ERP environments with external services securely and rapidly.</p>
         </div>
     </div>
 
