@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mastering SAP PI/PO XSLT Mapping & External Definitions for Geek+ EWM Integration</title>
+    <title>Mastering SAP PI/PO XSLT Mapping & External Definitions for Warehouse Automation Integration</title>
     <style>
         :root {
             --primary: #0f172a;
@@ -88,8 +88,8 @@
 <body>
 
 <div class="container">
-    <h1>Mastering SAP PI/PO XSLT Mapping & External Definitions for Geek+ EWM Integration</h1>
-    <p>Integrating SAP Extended Warehouse Management (EWM) with external automation platforms like Geek+ requires precise handling of multi-message mapping wrappers, rigid schema namespaces, and comprehensive payload transformations. This guide walks through resolving standard transformer engine exceptions, mapping complex outbound picking specifications, and configuring External Definitions step-by-step.</p>
+    <h1>Mastering SAP PI/PO XSLT Mapping & External Definitions for Warehouse Automation Integration</h1>
+    <p>Integrating SAP Extended Warehouse Management (EWM) with external automation and robotics platforms requires precise handling of multi-message mapping wrappers, rigid schema namespaces, and comprehensive payload transformations. This guide walks through resolving standard transformer engine exceptions, mapping complex outbound picking specifications, and configuring External Definitions step-by-step.</p>
 
     <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 40px 0;">
 
@@ -116,7 +116,7 @@
 &lt;xsl:stylesheet version="1.0" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xmlns:ns0="http://sap.com/xi/XI/SplitAndMerge"
-    xmlns:p6="http://mras.com/ewm/geekplus"
+    xmlns:p6="http://example.com/ewm/automation"
     exclude-result-prefixes=""&gt;
     
     &lt;xsl:variable name="FINAL_USER_ID"&gt;testUser&lt;/xsl:variable&gt;
@@ -126,8 +126,8 @@
         &lt;ns0:Messages&gt;
             &lt;xsl:for-each select="//*[local-name()='_-SCWM_-E1LTORI']"&gt;
                 &lt;ns0:Message1&gt;
-                    &lt;p6:MT_GeekPlus_PickOrder&gt;
-                        &lt;Geekplus_Pick_Order_Request&gt;
+                    &lt;p6:MT_Automation_PickOrder&gt;
+                        &lt;Pick_Order_Request&gt;
                             &lt;header&gt;
                                 &lt;warehouse_code&gt;9190&lt;/warehouse_code&gt;
                                 &lt;user_id&gt;&lt;xsl:value-of select="$FINAL_USER_ID"/&gt;&lt;/user_id&gt;
@@ -155,8 +155,8 @@
                                     &lt;/sku_list&gt;
                                 &lt;/order_list&gt;
                             &lt;/body&gt;
-                        &lt;/Geekplus_Pick_Order_Request&gt;
-                    &lt;/p6:MT_GeekPlus_PickOrder&gt;
+                        &lt;/Pick_Order_Request&gt;
+                    &lt;/p6:MT_Automation_PickOrder&gt;
                 &lt;/ns0:Message1&gt;
             &lt;/xsl:for-each&gt;
         &lt;/ns0:Messages&gt;
@@ -177,16 +177,16 @@
 
     <h3>Core Structure Definition: Schema1.xsd</h3>
     <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;xsd:schema targetNamespace="http://mras.com/ewm/geekplus" 
+&lt;xsd:schema targetNamespace="http://example.com/ewm/automation" 
             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-            xmlns="http://mras.com/ewm/geekplus" 
+            xmlns="http://example.com/ewm/automation" 
             elementFormDefault="qualified"&gt;
 
-    &lt;xsd:element name="MT_GeekPlus_PickOrder" type="DT_Geekplus_PickOrder_Request"/&gt;
+    &lt;xsd:element name="MT_Automation_PickOrder" type="DT_Automation_PickOrder_Request"/&gt;
 
-    &lt;xsd:complexType name="DT_Geekplus_PickOrder_Request"&gt;
+    &lt;xsd:complexType name="DT_Automation_PickOrder_Request"&gt;
         &lt;xsd:sequence&gt;
-            &lt;xsd:element name="Geekplus_Pick_Order_Request"&gt;
+            &lt;xsd:element name="Pick_Order_Request"&gt;
                 &lt;xsd:complexType&gt;
                     &lt;xsd:sequence&gt;
                         &lt;xsd:element name="header"&gt;
@@ -247,8 +247,8 @@
                                                         &lt;/xsd:sequence&gt;
                                                     &lt;/xsd:complexType&gt;
                                                 &lt;/xsd:element&gt;
-                                            &lt;/xsd:sequence&gt;
-                                        &lt;/xsd:complexType&gt;
+                                            &lt;xsd:sequence&gt;
+                                        &lt;xsd:complexType&gt;
                                     &lt;/xsd:element&gt;
                                 &lt;/xsd:sequence&gt;
                             &lt;/xsd:complexType&gt;
@@ -264,10 +264,10 @@
     <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;xsd:schema targetNamespace="http://sap.com/xi/XI/SplitAndMerge" 
             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-            xmlns:p1="http://mras.com/ewm/geekplus" 
+            xmlns:p1="http://example.com/ewm/automation" 
             xmlns="http://sap.com/xi/XI/SplitAndMerge"&gt;
             
-    &lt;xsd:import namespace="http://mras.com/ewm/geekplus" schemaLocation="Schema1.xsd"/&gt;
+    &lt;xsd:import namespace="http://example.com/ewm/automation" schemaLocation="Schema1.xsd"/&gt;
     
     &lt;xsd:element name="Messages"&gt;
         &lt;xsd:complexType&gt;
@@ -275,7 +275,7 @@
                 &lt;xsd:element name="Message1" form="qualified"&gt;
                     &lt;xsd:complexType&gt;
                         &lt;xsd:sequence&gt;
-                            &lt;xsd:element ref="p1:MT_GeekPlus_PickOrder" minOccurs="0" maxOccurs="unbounded"/&gt;
+                            &lt;xsd:element ref="p1:MT_Automation_PickOrder" minOccurs="0" maxOccurs="unbounded"/&gt;
                         &lt;/xsd:sequence&gt;
                     &lt;/xsd:complexType&gt;
                 &lt;/xsd:element&gt;
