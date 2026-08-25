@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SchemaZip | Schema-Aware Compression for SAP IDoc, EDI & Business Data</title>
-    <meta name="description" content="SchemaZip is a schema-aware compression layer that beats plain zstd/brotli by 26-45% on real SAP IDoc, EDI, and business data — and beats the W3C EXI standard itself by 29% in a real, verified head-to-head. Try it live on your own file.">
+    <meta name="description" content="SchemaZip is a schema-aware compression layer that beats plain zstd/brotli by 30-55% on real SAP IDoc, EDI, and business data — and beats the W3C EXI standard itself by 33% in a real, verified head-to-head. Try it live on your own file.">
 
     <!-- Google AdSense Verification Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1378964403590324"
@@ -150,7 +150,7 @@
 
 <header>
     <h1>SchemaZip</h1>
-    <p class="subtitle">A schema-aware compression layer for SAP IDoc, EDI, and business data — verified to beat plain zstd/brotli by 26–45%, and the W3C EXI standard itself by 29%. Try it live on your own file below.</p>
+    <p class="subtitle">A schema-aware compression layer for SAP IDoc, EDI, and business data — verified to beat plain zstd/brotli by 30–55%, and the W3C EXI standard itself by 33%. Try it live on your own file below.</p>
 </header>
 
 <div class="container">
@@ -168,8 +168,8 @@
         <p>Every result — in this write-up and in the live tester below — is round-trip verified: SchemaZip compresses, immediately decompresses, and checks the output matches the original byte-for-byte before the number is ever shown. If a mode ever fails that check, the app says so instead of hiding it.</p>
 
         <div class="stat-grid">
-            <div class="stat-box"><div class="num">26–45%</div><div class="lbl">smaller than plain zstd on real SAP IDoc / EDI / Excel exports, with a trained dictionary</div></div>
-            <div class="stat-box"><div class="num">29.2%</div><div class="lbl">smaller than the W3C EXI standard's own strongest mode (schema-informed + zstd), across 28 real IDoc/EDI files</div></div>
+            <div class="stat-box"><div class="num">30–55%</div><div class="lbl">smaller than plain zstd on real SAP IDoc / EDI / Excel exports, with a trained dictionary</div></div>
+            <div class="stat-box"><div class="num">33.0%</div><div class="lbl">smaller than the W3C EXI standard's own strongest mode (schema-informed + zstd), across 28 real IDoc/EDI files</div></div>
             <div class="stat-box"><div class="num">28 / 28</div><div class="lbl">files where SchemaZip beat EXI outright, individually — not just on average</div></div>
         </div>
 
@@ -185,7 +185,7 @@
                 <tr><td>EXI, schema-less + zstd</td><td class="num">53,868 bytes</td><td class="num">90.2% smaller</td></tr>
                 <tr><td>EXI, schema-informed</td><td class="num">56,032 bytes</td><td class="num">89.8% smaller</td></tr>
                 <tr><td>EXI, schema-informed + zstd (EXI's best)</td><td class="num">37,690 bytes</td><td class="num">93.1% smaller</td></tr>
-                <tr class="best-row"><td>SchemaZip</td><td class="num">26,699 bytes</td><td class="num">95.1% smaller</td></tr>
+                <tr class="best-row"><td>SchemaZip</td><td class="num">25,252 bytes</td><td class="num">95.4% smaller</td></tr>
             </tbody>
         </table>
         </div>
