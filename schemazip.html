@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchemaZip | Schema-Aware Compression for SAP IDoc, EDI & Business Data</title>
+    <meta name="description" content="SchemaZip is a schema-aware compression layer that beats plain zstd/brotli by 26-45% on real SAP IDoc, EDI, and business data — and beats the W3C EXI standard itself by 29% in a real, verified head-to-head. Try it live on your own file.">
+
+    <!-- Google AdSense Verification Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1378964403590324"
+         crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --bg-color: #0b0d12;
+            --card-bg: #131722;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        .nav-bar {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand { color: #ffffff; font-weight: 700; text-decoration: none; font-size: 1.1rem; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: var(--accent-blue); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.2s; }
+        .nav-links a:hover { color: #ffffff; }
+        .nav-links a.current { color: #ffffff; border-bottom: 2px solid var(--accent-blue); padding-bottom: 3px; }
+
+        header {
+            background: linear-gradient(135deg, #0284c7 0%, #4c1d95 50%, #064e3b 100%);
+            padding: 70px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 { font-size: 2.75rem; letter-spacing: -0.03em; margin-bottom: 15px; color: #ffffff; text-shadow: 0 0 25px rgba(59, 130, 246, 0.4); }
+        header p.subtitle { font-size: 1.2rem; color: #e2e8f0; max-width: 780px; margin: 0 auto; font-weight: 300; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 50px 20px; }
+
+        .article-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .badge {
+            background: var(--accent-blue); color: #fff; padding: 4px 12px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em;
+            display: inline-block; margin-bottom: 12px;
+        }
+        .badge-green { background: var(--accent-green); }
+        .badge-purple { background: var(--accent-purple); }
+        .badge-amber { background: var(--accent-amber); color: #1a1300; }
+
+        .article-card h2 { font-size: 1.7rem; color: #ffffff; margin-bottom: 14px; }
+        .article-card h3 { font-size: 1.25rem; color: #ffffff; margin: 20px 0 10px; }
+        .article-card p { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 15px; }
+        .article-card ul { margin-left: 20px; color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px; }
+        .article-card ul li { margin-bottom: 8px; }
+        .article-card code { background: #0b0d12; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; color: #a5b4fc; }
+
+        /* stat grid */
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0; }
+        .stat-box { background: #0f1420; border: 1px solid var(--border-color); border-radius: 10px; padding: 20px; text-align: center; }
+        .stat-box .num { font-size: 2.1rem; font-weight: 800; color: var(--accent-green); }
+        .stat-box .lbl { font-size: 0.85rem; color: var(--text-muted); margin-top: 6px; }
+
+        /* comparison table (used both for the static write-up and the live tester) */
+        table.results-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.92rem; }
+        table.results-table th {
+            text-align: left; background: #0f1420; color: var(--text-muted); font-weight: 700;
+            padding: 10px 12px; border-bottom: 1px solid var(--border-color); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.04em;
+        }
+        table.results-table td { padding: 10px 12px; border-bottom: 1px solid var(--border-color); color: var(--text-main); }
+        table.results-table tr.best-row td { background: rgba(16, 185, 129, 0.08); color: #ffffff; font-weight: 600; }
+        table.results-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+        .verified-tick { color: var(--accent-green); font-weight: bold; }
+
+        /* live tester */
+        .tester-drop {
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 36px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .tester-drop:hover, .tester-drop.dragover { border-color: var(--accent-blue); background: rgba(59, 130, 246, 0.05); }
+        .tester-drop p { color: var(--text-muted); margin: 0; }
+        .tester-drop .big { color: #fff; font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
+        #file-input { display: none; }
+
+        .action-link, button.action-link {
+            display: inline-block; background: var(--accent-blue); color: #fff; border: none;
+            padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;
+            font-size: 0.9rem; margin-top: 14px; cursor: pointer; transition: opacity 0.2s;
+        }
+        .action-link:hover { opacity: 0.9; }
+        .action-link:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .tester-status { margin-top: 14px; font-size: 0.9rem; color: var(--text-muted); min-height: 1.4em; }
+        .tester-error { color: var(--accent-red); font-weight: 600; }
+        .tester-summary { margin-top: 16px; padding: 14px 16px; background: #0f1420; border-radius: 8px; border-left: 3px solid var(--accent-green); font-size: 0.95rem; }
+
+        .privacy-note { font-size: 0.82rem; color: var(--text-muted); margin-top: 14px; }
+        .privacy-note svg { vertical-align: -2px; margin-right: 4px; }
+
+        footer {
+            text-align: center; padding: 40px 20px; border-top: 1px solid var(--border-color);
+            color: var(--text-muted); font-size: 0.9rem; background: var(--card-bg); margin-top: 60px;
+        }
+        footer a { color: var(--accent-blue); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="nav-bar">
+    <a href="index.html" class="nav-brand">⚡ The Continuous Node</a>
+    <div class="nav-links">
+        <a href="sap-hub.html">SAP Hub</a>
+        <a href="research.html">Research</a>
+        <a href="schemazip.html" class="current">SchemaZip</a>
+    </div>
+</div>
+
+<header>
+    <h1>SchemaZip</h1>
+    <p class="subtitle">A schema-aware compression layer for SAP IDoc, EDI, and business data — verified to beat plain zstd/brotli by 26–45%, and the W3C EXI standard itself by 29%. Try it live on your own file below.</p>
+</header>
+
+<div class="container">
+
+    <div class="article-card">
+        <span class="badge badge-purple">What It Is</span>
+        <h2>Compression that understands your data's shape, not just its bytes</h2>
+        <p>General-purpose compressors like zstd, brotli, and gzip treat every file as an undifferentiated stream of bytes. SchemaZip doesn't — it looks at the actual <em>structure</em> of your records first (a batch of SAP IDoc line items, an Excel export, a CSV of transactions), transposes repeated fields into columns, delta-encodes and bit-packs numeric sequences, dictionary-encodes categorical values, and <em>then</em> hands the result to a general-purpose backend (zstd or brotli, whichever wins) for final entropy coding.</p>
+        <p>The result: it strips out structural redundancy a byte-level compressor can't see, on top of whatever that compressor already does well. That combination is what produces the numbers below.</p>
+    </div>
+
+    <div class="article-card">
+        <span class="badge badge-green">Verified Results</span>
+        <h2>Real numbers, not marketing claims</h2>
+        <p>Every result — in this write-up and in the live tester below — is round-trip verified: SchemaZip compresses, immediately decompresses, and checks the output matches the original byte-for-byte before the number is ever shown. If a mode ever fails that check, the app says so instead of hiding it.</p>
+
+        <div class="stat-grid">
+            <div class="stat-box"><div class="num">26–45%</div><div class="lbl">smaller than plain zstd on real SAP IDoc / EDI / Excel exports, with a trained dictionary</div></div>
+            <div class="stat-box"><div class="num">29.2%</div><div class="lbl">smaller than the W3C EXI standard's own strongest mode (schema-informed + zstd), across 28 real IDoc/EDI files</div></div>
+            <div class="stat-box"><div class="num">28 / 28</div><div class="lbl">files where SchemaZip beat EXI outright, individually — not just on average</div></div>
+        </div>
+
+        <h3>Beating EXI specifically is the interesting part</h3>
+        <p>Efficient XML Interchange (EXI) is the W3C's own binary XML standard, purpose-built for exactly this kind of data. Tested head-to-head using EXIficient (the open-source reference implementation) — including EXI's <strong>schema-informed</strong> mode, which gets an XSD describing the exact structure in advance, an advantage SchemaZip never gets — SchemaZip still came out ahead on every single file:</p>
+
+        <div style="overflow-x:auto;">
+        <table class="results-table">
+            <thead><tr><th>Method</th><th class="num">Total (28 files)</th><th class="num">vs. raw XML</th></tr></thead>
+            <tbody>
+                <tr><td>Raw XML</td><td class="num">550,146 bytes</td><td class="num">—</td></tr>
+                <tr><td>EXI, schema-less</td><td class="num">75,428 bytes</td><td class="num">86.3% smaller</td></tr>
+                <tr><td>EXI, schema-less + zstd</td><td class="num">53,868 bytes</td><td class="num">90.2% smaller</td></tr>
+                <tr><td>EXI, schema-informed</td><td class="num">56,032 bytes</td><td class="num">89.8% smaller</td></tr>
+                <tr><td>EXI, schema-informed + zstd (EXI's best)</td><td class="num">37,690 bytes</td><td class="num">93.1% smaller</td></tr>
+                <tr class="best-row"><td>SchemaZip</td><td class="num">26,699 bytes</td><td class="num">95.1% smaller</td></tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <div class="article-card">
+        <span class="badge badge-amber">Honest Caveats</span>
+        <h2>Where it doesn't win — because it shouldn't claim to</h2>
+        <p>SchemaZip's structural transform pays off when there's structure to exploit: repeated field names, batches of similar records, numeric or categorical columns. On a handful of genuinely unique records — a 3-message chat log, one-off prose — there's very little redundancy for <em>any</em> compressor to find, and SchemaZip typically ties the best general-purpose method rather than beating it. That's an honest information-theoretic limit, not a bug, and the tester below will show you exactly that when it happens.</p>
+    </div>
+
+    <div class="article-card" id="tester">
+        <span class="badge">Try It Live</span>
+        <h2>Test SchemaZip on your own file</h2>
+        <p>Upload a <code>.json</code>, <code>.csv</code>, <code>.xml</code> (SAP IDoc / EDI), <code>.xlsx</code>, <code>.docx</code>, or <code>.txt</code> file and see how SchemaZip compares to gzip, bz2, lzma, zstd, and brotli on your actual data — verified live, not a canned demo.</p>
+
+        <div class="tester-drop" id="drop-zone">
+            <p class="big">Drop a file here, or click to choose one</p>
+            <p>.json · .csv · .xml · .xlsx · .docx · .txt — up to 5MB</p>
+            <input type="file" id="file-input" accept=".json,.csv,.xml,.xlsx,.docx,.txt">
+        </div>
+        <div style="text-align:center;">
+            <button class="action-link" id="run-btn">Choose a file first</button>
+        </div>
+        <div class="tester-status" id="tester-status"></div>
+
+        <div id="tester-results" style="display:none; overflow-x:auto;">
+            <table class="results-table" id="results-table">
+                <thead><tr><th>Method</th><th class="num">Compressed Size</th><th class="num">Shrunk By</th><th>Check</th></tr></thead>
+                <tbody id="results-tbody"></tbody>
+            </table>
+            <div class="tester-summary" id="tester-summary"></div>
+        </div>
+
+        <p class="privacy-note">Your file is processed in memory on the server for this one request only — never written to persistent storage, never logged, never retained. Max 5MB / 50,000 records per file for this demo.</p>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 The Continuous Node Project — Enterprise SAP Architecture Hub</p>
+    <p style="margin-top:8px;"><a href="index.html">&larr; Back to Home</a></p>
+</footer>
+
+<script>
+    const API_BASE = "https://schemazip-web-api.onrender.com";
+
+    const dropZone = document.getElementById("drop-zone");
+    const fileInput = document.getElementById("file-input");
+    const runBtn = document.getElementById("run-btn");
+    const statusEl = document.getElementById("tester-status");
+    const resultsWrap = document.getElementById("tester-results");
+    const resultsBody = document.getElementById("results-tbody");
+    const summaryEl = document.getElementById("tester-summary");
+
+    let selectedFile = null;
+
+    dropZone.addEventListener("click", () => fileInput.click());
+    dropZone.addEventListener("dragover", (e) => { e.preventDefault(); dropZone.classList.add("dragover"); });
+    dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
+    dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("dragover");
+        if (e.dataTransfer.files.length) selectFile(e.dataTransfer.files[0]);
+    });
+    fileInput.addEventListener("change", () => {
+        if (fileInput.files.length) selectFile(fileInput.files[0]);
+    });
+
+    function selectFile(file) {
+        selectedFile = file;
+        dropZone.querySelector(".big").textContent = file.name;
+        runBtn.textContent = "Run Test";
+        statusEl.textContent = "";
+        statusEl.className = "tester-status";
+        resultsWrap.style.display = "none";
+    }
+
+    runBtn.addEventListener("click", async () => {
+        if (!selectedFile) {
+            // Button doubles as a file picker until a file is chosen, so
+            // it's always clickable and always does something sensible --
+            // no dead-looking-but-disabled state to trip people up.
+            fileInput.click();
+            return;
+        }
+        runBtn.disabled = true;
+        runBtn.textContent = "Testing…";
+        statusEl.textContent = "Uploading and running compression methods — this can take a few seconds, and the server may take up to ~30s to wake up if it's been idle.";
+        statusEl.className = "tester-status";
+        resultsWrap.style.display = "none";
+
+        const form = new FormData();
+        form.append("file", selectedFile);
+
+        try {
+            const resp = await fetch(API_BASE + "/api/test", { method: "POST", body: form });
+            let data;
+            try {
+                data = await resp.json();
+            } catch (e) {
+                throw new Error(resp.status === 413 ? "That file is over the 5MB demo limit." : "The server returned an unexpected response.");
+            }
+            if (!resp.ok) throw new Error(data.error || "Something went wrong.");
+
+            renderResults(data);
+            statusEl.textContent = `Done — tested ${data.n_records.toLocaleString()} records.`;
+        } catch (err) {
+            statusEl.textContent = err.message;
+            statusEl.className = "tester-status tester-error";
+        } finally {
+            runBtn.disabled = false;
+            runBtn.textContent = "Run Test";
+        }
+    });
+
+    function renderResults(data) {
+        resultsBody.innerHTML = "";
+        data.results.forEach((r, i) => {
+            const pct = (100 * (1 - r.size / data.raw_size)).toFixed(1);
+            const tr = document.createElement("tr");
+            if (i === 0) tr.className = "best-row";
+            const check = r.verified === undefined ? "—" : (r.verified ? '<span class="verified-tick">verified ✓</span>' : '<span style="color:var(--accent-red);">FAILED ✗</span>');
+            tr.innerHTML = `<td>${r.name}</td><td class="num">${r.size.toLocaleString()} bytes</td><td class="num">${pct}% smaller</td><td>${check}</td>`;
+            resultsBody.appendChild(tr);
+        });
+
+        const szRows = data.results.filter(r => r.name.startsWith("SchemaZip"));
+        const otherRows = data.results.filter(r => !r.name.startsWith("SchemaZip"));
+        const bestSz = szRows.reduce((a, b) => (a.size < b.size ? a : b));
+        const bestOther = otherRows.reduce((a, b) => (a.size < b.size ? a : b));
+
+        let msg;
+        if (bestSz.size < bestOther.size) {
+            const pct = (100 * (1 - bestSz.size / bestOther.size)).toFixed(1);
+            msg = `On this file, <strong>${bestSz.name}</strong> was <strong>${pct}% smaller</strong> than the best standard method (${bestOther.name}).`;
+        } else {
+            const pct = (100 * (1 - bestOther.size / bestSz.size)).toFixed(1);
+            msg = `On this file, the standard method (${bestOther.name}) did ${pct}% better than SchemaZip. That happens — results depend on the shape of your data.`;
+        }
+        summaryEl.innerHTML = msg;
+        resultsWrap.style.display = "block";
+    }
+</script>
+
+</body>
+</html>
