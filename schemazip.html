@@ -204,7 +204,7 @@
 
         <div class="tester-drop" id="drop-zone">
             <p class="big">Drop a file here, or click to choose one</p>
-            <p>.json · .csv · .xml · .xlsx · .docx · .txt — up to 5MB</p>
+            <p>.json · .csv · .xml · .xlsx · .docx · .txt — up to 20MB</p>
             <input type="file" id="file-input" accept=".json,.csv,.xml,.xlsx,.docx,.txt">
         </div>
         <div style="text-align:center;">
@@ -220,7 +220,7 @@
             <div class="tester-summary" id="tester-summary"></div>
         </div>
 
-        <p class="privacy-note">Your file is processed in memory on the server for this one request only — never written to persistent storage, never logged, never retained. Max 5MB / 50,000 records per file for this demo.</p>
+        <p class="privacy-note">Your file is processed in memory on the server for this one request only — never written to persistent storage, never logged, never retained. Max 20MB / 100,000 records per file for this demo. Files over 6,000 records get a faster (still verified) comparison that skips the slowest methods, to keep results quick.</p>
     </div>
 
 </div>
@@ -287,12 +287,14 @@
             try {
                 data = await resp.json();
             } catch (e) {
-                throw new Error(resp.status === 413 ? "That file is over the 5MB demo limit." : "The server returned an unexpected response.");
+                throw new Error(resp.status === 413 ? "That file is over the 20MB demo limit." : "The server returned an unexpected response.");
             }
             if (!resp.ok) throw new Error(data.error || "Something went wrong.");
 
             renderResults(data);
-            statusEl.textContent = `Done — tested ${data.n_records.toLocaleString()} records.`;
+            let doneMsg = `Done — tested ${data.n_records.toLocaleString()} records.`;
+            if (data.note) doneMsg += `  ${data.note}`;
+            statusEl.textContent = doneMsg;
         } catch (err) {
             statusEl.textContent = err.message;
             statusEl.className = "tester-status tester-error";
