@@ -18,6 +18,7 @@
             --accent-purple: #8b5cf6;
             --accent-green: #10b981;
             --accent-amber: #f59e0b;
+            --accent-cyan: #49d3ff;
             --accent-red: #ef4444;
             --text-main: #e2e8f0;
             --text-muted: #94a3b8;
@@ -84,6 +85,59 @@
         .article-card ul li { margin-bottom: 8px; }
         .article-card code { background: #0b0d12; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; color: #a5b4fc; }
 
+        /* achievement strip -- a slim, always-visible ticker of verified numbers,
+           directly under the nav so it's the first concrete thing a visitor sees */
+        .achievement-strip {
+            background: linear-gradient(90deg, #0f1420 0%, #17203a 25%, #0f1420 50%, #17203a 75%, #0f1420 100%);
+            background-size: 200% 100%;
+            animation: strip-shimmer 12s ease-in-out infinite;
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 20px;
+            overflow: hidden;
+        }
+        @keyframes strip-shimmer {
+            0% { background-position: 0% 0; }
+            50% { background-position: 100% 0; }
+            100% { background-position: 0% 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .achievement-strip { animation: none; }
+        }
+        .achievement-strip .track {
+            display: flex; justify-content: center; align-items: center; flex-wrap: wrap;
+            gap: 10px 28px; max-width: 1100px; margin: 0 auto;
+        }
+        .achievement-strip .item {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 0.85rem; color: var(--text-muted); white-space: nowrap;
+        }
+        .achievement-strip .item strong { color: #ffffff; font-weight: 800; }
+        .achievement-strip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+
+        /* glow-on-hover for cards -- subtle, not gimmicky */
+        .article-card { transition: border-color 0.25s, box-shadow 0.25s; }
+        .article-card:hover { border-color: #2c3550; box-shadow: 0 0 0 1px rgba(59,130,246,0.15), 0 12px 40px -20px rgba(59,130,246,0.35); }
+
+        .glow-heading {
+            background: linear-gradient(90deg, #ffffff 0%, #cfe0ff 60%, #93c5fd 100%);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+
+        /* App showcase (desktop app section) */
+        .app-showcase { display: grid; grid-template-columns: 1.1fr 1fr; gap: 30px; align-items: center; }
+        @media (max-width: 760px) { .app-showcase { grid-template-columns: 1fr; } }
+        .app-shot-frame {
+            border-radius: 14px; overflow: hidden; border: 1px solid #2c3550;
+            box-shadow: 0 0 0 1px rgba(73,211,255,0.12), 0 20px 60px -20px rgba(59,130,246,0.45);
+        }
+        .app-shot-frame img { display: block; width: 100%; height: auto; }
+        .mode-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 0.88rem; margin: 4px 8px 4px 0; }
+        .mode-pill.compress { background: rgba(245, 158, 11, 0.14); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.35); }
+        .mode-pill.decompress { background: rgba(73, 211, 255, 0.12); color: var(--accent-cyan); border: 1px solid rgba(73, 211, 255, 0.35); }
+        .feature-list { list-style: none; margin: 18px 0; padding: 0; }
+        .feature-list li { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; font-size: 0.95rem; color: var(--text-main); }
+        .feature-list li .tick { color: var(--accent-green); font-weight: 900; flex-shrink: 0; }
+
         /* stat grid */
         .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0; }
         .stat-box { background: #0f1420; border: 1px solid var(--border-color); border-radius: 10px; padding: 20px; text-align: center; }
@@ -148,12 +202,45 @@
     </div>
 </div>
 
+<div class="achievement-strip">
+    <div class="track">
+        <span class="item"><span class="dot"></span> <strong>30–55%</strong> smaller than zstd, brotli, bz2 &amp; lzma</span>
+        <span class="item"><span class="dot"></span> <strong>33%</strong> beyond the W3C EXI standard</span>
+        <span class="item"><span class="dot"></span> <strong>28 / 28</strong> real files verified, individually</span>
+        <span class="item"><span class="dot"></span> Now shipping as a <strong>desktop app</strong></span>
+    </div>
+</div>
+
 <header>
-    <h1>SchemaZip</h1>
-    <p class="subtitle">A schema-aware compression layer for SAP IDoc, EDI, and business data — verified to beat plain zstd/brotli by 30–55%, and the W3C EXI standard itself by 33%. Try it live on your own file below.</p>
+    <h1 class="glow-heading">SchemaZip</h1>
+    <p class="subtitle">A schema-aware compression engine for SAP IDoc, EDI, and business data — verified to beat plain zstd/brotli by 30–55%, and the W3C EXI standard itself by 33%. Try it live below, or grab the desktop app.</p>
 </header>
 
 <div class="container">
+
+    <div class="article-card">
+        <span class="badge badge-amber">New</span>
+        <h2>SchemaZip is now a desktop app — two modes, no guessing</h2>
+        <div class="app-showcase">
+            <div class="app-shot-frame">
+                <img src="assets/schemazip-app-compress.png" alt="SchemaZip desktop app showing the Compress tab active, with a drop zone for files and folders" loading="lazy">
+            </div>
+            <div>
+                <p>One window, two explicit modes — nothing to auto-detect, nothing to get wrong:</p>
+                <p>
+                    <span class="mode-pill compress">⤓ Compress</span>
+                    <span class="mode-pill decompress">⤑ Decompress</span>
+                </p>
+                <ul class="feature-list">
+                    <li><span class="tick">✓</span> Drop <strong>any file — or a whole folder</strong> — into Compress; every file inside gets the same schema-aware treatment, sub-folders and all.</li>
+                    <li><span class="tick">✓</span> Drop the resulting <code>.schemazip</code> back into Decompress and get the <strong>exact original back</strong>, checksum-verified before it's ever written to disk.</li>
+                    <li><span class="tick">✓</span> Flat JSON data gets the full schema-aware "Turbo" transform automatically; everything else still gets SchemaZip's own backend-optimized engine — never just a bare zstd/brotli call.</li>
+                    <li><span class="tick">✓</span> Runs entirely on your machine. Nothing uploaded, nothing logged.</li>
+                </ul>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Windows desktop app (~15MB, single .exe, nothing to install). Built on the exact same engine verified on this page — same numbers, same guarantees, now with folders.</p>
+            </div>
+        </div>
+    </div>
 
     <div class="article-card">
         <span class="badge badge-purple">What It Is</span>
