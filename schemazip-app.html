@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchemaZip Web App | Compress &amp; Decompress in Your Browser</title>
+    <meta name="description" content="Compress any file to .schemazip, or restore one back to the exact original — right in your browser. No install, no retention, verified byte-exact every time.">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1378964403590324"
+         crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --bg-color: #0b0d12;
+            --card-bg: #131722;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-cyan: #49d3ff;
+            --accent-red: #ef4444;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        .nav-bar {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-brand { color: #ffffff; font-weight: 700; text-decoration: none; font-size: 1.1rem; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: var(--accent-blue); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.2s; }
+        .nav-links a:hover { color: #ffffff; }
+        .nav-links a.current { color: #ffffff; border-bottom: 2px solid var(--accent-blue); padding-bottom: 3px; }
+
+        .achievement-strip {
+            background: linear-gradient(90deg, #0f1420 0%, #17203a 25%, #0f1420 50%, #17203a 75%, #0f1420 100%);
+            background-size: 200% 100%;
+            animation: strip-shimmer 12s ease-in-out infinite;
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 20px;
+            overflow: hidden;
+        }
+        .achievement-strip .track {
+            display: flex; justify-content: center; align-items: center; flex-wrap: wrap;
+            gap: 10px 28px; max-width: 1100px; margin: 0 auto;
+        }
+        .achievement-strip .item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
+        .achievement-strip .item strong { color: #ffffff; font-weight: 800; }
+        .achievement-strip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+        @keyframes strip-shimmer { 0% { background-position: 0% 0; } 50% { background-position: 100% 0; } 100% { background-position: 0% 0; } }
+        @media (prefers-reduced-motion: reduce) { .achievement-strip { animation: none; } }
+
+        header { padding: 56px 20px 24px; text-align: center; }
+        .glow-heading {
+            background: linear-gradient(90deg, #ffffff 0%, #cfe0ff 60%, #93c5fd 100%);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        header h1 { font-size: 2.4rem; letter-spacing: -0.03em; margin-bottom: 12px; }
+        header p.subtitle { font-size: 1.05rem; color: var(--text-muted); max-width: 640px; margin: 0 auto; font-weight: 300; }
+
+        .container { max-width: 720px; margin: 0 auto; padding: 10px 20px 60px; }
+
+        /* mode switch -- mirrors the desktop app's own tab bar exactly */
+        .mode-switch {
+            display: flex; justify-content: center; gap: 6px; padding: 5px;
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; max-width: 380px; margin: 0 auto 28px;
+        }
+        .mode-btn {
+            flex: 1; padding: 12px 18px; border: none; border-radius: 12px; cursor: pointer;
+            font-size: 0.95rem; font-weight: 700; font-family: inherit;
+            background: transparent; color: var(--text-muted); transition: background 0.25s, color 0.25s;
+        }
+        .mode-btn.active.compress { background: var(--accent-amber); color: #241a00; }
+        .mode-btn.active.decompress { background: var(--accent-cyan); color: #00222e; }
+
+        .app-card {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;
+            padding: 34px; transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .app-card.compress-active { border-color: rgba(245,158,11,0.35); box-shadow: 0 0 0 1px rgba(245,158,11,0.12), 0 20px 60px -30px rgba(245,158,11,0.4); }
+        .app-card.decompress-active { border-color: rgba(73,211,255,0.35); box-shadow: 0 0 0 1px rgba(73,211,255,0.12), 0 20px 60px -30px rgba(73,211,255,0.4); }
+
+        .drop-zone {
+            border: 2px dashed var(--border-color); border-radius: 14px; padding: 44px 20px;
+            text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s;
+        }
+        .drop-zone:hover, .drop-zone.dragover { background: rgba(255,255,255,0.02); }
+        .compress-active .drop-zone:hover, .compress-active .drop-zone.dragover { border-color: var(--accent-amber); }
+        .decompress-active .drop-zone:hover, .decompress-active .drop-zone.dragover { border-color: var(--accent-cyan); }
+        .drop-zone .icon { font-size: 2.2rem; margin-bottom: 10px; }
+        .drop-zone .big { color: #fff; font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
+        .drop-zone p { color: var(--text-muted); margin: 0; font-size: 0.88rem; }
+        #file-input { display: none; }
+
+        .action-row { text-align: center; margin-top: 18px; }
+        button.run-btn {
+            border: none; padding: 12px 28px; border-radius: 10px; font-weight: 800; font-size: 0.95rem;
+            cursor: pointer; font-family: inherit; transition: opacity 0.2s, transform 0.1s;
+        }
+        button.run-btn:active { transform: scale(0.98); }
+        button.run-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .compress-active button.run-btn { background: var(--accent-amber); color: #241a00; }
+        .decompress-active button.run-btn { background: var(--accent-cyan); color: #00222e; }
+
+        .status-line { margin-top: 16px; font-size: 0.9rem; color: var(--text-muted); text-align: center; min-height: 1.4em; }
+        .status-line.error { color: var(--accent-red); font-weight: 600; }
+
+        .result-panel { display: none; margin-top: 22px; padding: 20px; background: #0f1420; border-radius: 12px; border: 1px solid var(--border-color); }
+        .result-stats { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-bottom: 14px; }
+        .result-stats .stat { text-align: center; }
+        .result-stats .stat .num { font-size: 1.4rem; font-weight: 800; color: #fff; }
+        .result-stats .stat.accent .num { color: var(--accent-green); }
+        .result-stats .stat .lbl { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+        .result-badge {
+            display: block; text-align: center; margin: 0 auto 14px; width: fit-content;
+            padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;
+        }
+        .result-badge.turbo { background: rgba(245,158,11,0.14); color: var(--accent-amber); }
+        .result-badge.standard { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+        .result-download { text-align: center; font-size: 0.88rem; color: var(--text-muted); }
+        .result-download a { color: inherit; }
+
+        .privacy-note { font-size: 0.82rem; color: var(--text-muted); margin-top: 22px; text-align: center; }
+
+        footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.9rem; background: var(--card-bg); margin-top: 40px; }
+        footer a { color: var(--accent-blue); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="nav-bar">
+    <a href="index.html" class="nav-brand">⚡ The Continuous Node</a>
+    <div class="nav-links">
+        <a href="sap-hub.html">SAP Hub</a>
+        <a href="research.html">Research</a>
+        <a href="schemazip.html">SchemaZip</a>
+        <a href="schemazip-app.html" class="current">Web App</a>
+    </div>
+</div>
+
+<div class="achievement-strip">
+    <div class="track">
+        <span class="item"><span class="dot"></span> <strong>30–55%</strong> smaller than zstd, brotli, bz2 &amp; lzma</span>
+        <span class="item"><span class="dot"></span> <strong>33%</strong> beyond the W3C EXI standard</span>
+        <span class="item"><span class="dot"></span> Runs entirely <strong>in your browser session</strong></span>
+    </div>
+</div>
+
+<header>
+    <h1 class="glow-heading">SchemaZip Web App</h1>
+    <p class="subtitle">Compress any file, or restore a <code>.schemazip</code> file back to the exact original — no install, nothing retained after the request. Prefer folders or larger files? Grab the <a href="schemazip.html#desktop" style="color:var(--accent-cyan);">desktop app</a> instead.</p>
+</header>
+
+<div class="container">
+
+    <div class="mode-switch">
+        <button class="mode-btn active compress" id="tab-compress" data-mode="compress">⤓ Compress</button>
+        <button class="mode-btn decompress" id="tab-decompress" data-mode="decompress">⤑ Decompress</button>
+    </div>
+
+    <div class="app-card compress-active" id="app-card">
+        <div class="drop-zone" id="drop-zone">
+            <div class="icon" id="drop-icon">📄</div>
+            <p class="big" id="drop-title">Drop a file here, or click to choose one</p>
+            <p id="drop-hint">Any file → compressed to .schemazip — up to 2MB on the web app</p>
+            <input type="file" id="file-input">
+        </div>
+        <div class="action-row">
+            <button class="run-btn" id="run-btn">Choose a file first</button>
+        </div>
+        <div class="status-line" id="status-line"></div>
+
+        <div class="result-panel" id="result-panel">
+            <div class="result-stats" id="result-stats"></div>
+            <div class="result-badge" id="result-badge"></div>
+            <div class="result-download" id="result-download"></div>
+        </div>
+    </div>
+
+    <p class="privacy-note">Your file is processed in memory for this one request only — never written to persistent storage, never logged, never retained. Compress caps at 2MB, decompress at 8MB, on this free-tier deployment; the desktop app has no such limit.</p>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 The Continuous Node Project — Enterprise SAP Architecture Hub</p>
+    <p style="margin-top:8px;"><a href="schemazip.html">&larr; Back to SchemaZip</a></p>
+</footer>
+
+<script>
+    const API_BASE = "https://schemazip-web-api.onrender.com";
+
+    const tabCompress = document.getElementById("tab-compress");
+    const tabDecompress = document.getElementById("tab-decompress");
+    const appCard = document.getElementById("app-card");
+    const dropZone = document.getElementById("drop-zone");
+    const dropIcon = document.getElementById("drop-icon");
+    const dropTitle = document.getElementById("drop-title");
+    const dropHint = document.getElementById("drop-hint");
+    const fileInput = document.getElementById("file-input");
+    const runBtn = document.getElementById("run-btn");
+    const statusLine = document.getElementById("status-line");
+    const resultPanel = document.getElementById("result-panel");
+    const resultStats = document.getElementById("result-stats");
+    const resultBadge = document.getElementById("result-badge");
+    const resultDownload = document.getElementById("result-download");
+
+    let mode = "compress";
+    let selectedFile = null;
+
+    function setMode(m) {
+        mode = m;
+        tabCompress.classList.toggle("active", m === "compress");
+        tabDecompress.classList.toggle("active", m === "decompress");
+        appCard.classList.toggle("compress-active", m === "compress");
+        appCard.classList.toggle("decompress-active", m === "decompress");
+        dropIcon.textContent = m === "compress" ? "📄" : "📦";
+        dropTitle.textContent = selectedFile ? selectedFile.name : "Drop a file here, or click to choose one";
+        dropHint.textContent = m === "compress"
+            ? "Any file → compressed to .schemazip — up to 2MB on the web app"
+            : "A .schemazip file → restored exactly — up to 8MB on the web app";
+        runBtn.textContent = selectedFile ? "Run" : "Choose a file first";
+        statusLine.textContent = "";
+        statusLine.className = "status-line";
+        resultPanel.style.display = "none";
+    }
+    tabCompress.addEventListener("click", () => setMode("compress"));
+    tabDecompress.addEventListener("click", () => setMode("decompress"));
+
+    dropZone.addEventListener("click", () => fileInput.click());
+    dropZone.addEventListener("dragover", (e) => { e.preventDefault(); dropZone.classList.add("dragover"); });
+    dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
+    dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("dragover");
+        if (e.dataTransfer.files.length) selectFile(e.dataTransfer.files[0]);
+    });
+    fileInput.addEventListener("change", () => {
+        if (fileInput.files.length) selectFile(fileInput.files[0]);
+    });
+
+    function selectFile(file) {
+        selectedFile = file;
+        dropTitle.textContent = file.name;
+        runBtn.textContent = "Run";
+        statusLine.textContent = "";
+        statusLine.className = "status-line";
+        resultPanel.style.display = "none";
+    }
+
+    function humanSize(n) {
+        if (n < 1024) return n + " B";
+        if (n < 1024 * 1024) return (n / 1024).toFixed(1) + " KB";
+        return (n / (1024 * 1024)).toFixed(1) + " MB";
+    }
+
+    function parseFilename(disposition) {
+        if (!disposition) return null;
+        const starMatch = disposition.match(/filename\*=UTF-8''([^;]+)/i);
+        if (starMatch) return decodeURIComponent(starMatch[1]);
+        const match = disposition.match(/filename="?([^";]+)"?/i);
+        return match ? match[1] : null;
+    }
+
+    runBtn.addEventListener("click", async () => {
+        if (!selectedFile) { fileInput.click(); return; }
+        runBtn.disabled = true;
+        runBtn.textContent = mode === "compress" ? "Compressing…" : "Restoring…";
+        statusLine.textContent = "Uploading — the server may take up to ~30s to wake up if it's been idle.";
+        statusLine.className = "status-line";
+        resultPanel.style.display = "none";
+
+        const form = new FormData();
+        form.append("file", selectedFile);
+        const endpoint = mode === "compress" ? "/api/compress" : "/api/decompress";
+
+        try {
+            const resp = await fetch(API_BASE + endpoint, { method: "POST", body: form });
+            if (!resp.ok) {
+                let msg = "Something went wrong.";
+                try { msg = (await resp.json()).error || msg; }
+                catch (e) { msg = resp.status === 413 ? "That file is over the size limit." : msg; }
+                throw new Error(msg);
+            }
+
+            const disposition = resp.headers.get("Content-Disposition");
+            const filename = parseFilename(disposition) ||
+                (mode === "compress" ? selectedFile.name + ".schemazip" : "restored_file");
+            const origSize = resp.headers.get("X-Original-Size");
+            const compSize = resp.headers.get("X-Compressed-Size");
+            const modeUsed = resp.headers.get("X-Mode");
+
+            const blob = await resp.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url; a.download = filename;
+            document.body.appendChild(a); a.click(); a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 4000);
+
+            renderResult(mode, filename, blob.size, origSize, compSize, modeUsed);
+            statusLine.textContent = `Done — "${filename}" downloaded.`;
+        } catch (err) {
+            statusLine.textContent = err.message;
+            statusLine.className = "status-line error";
+        } finally {
+            runBtn.disabled = false;
+            runBtn.textContent = "Run";
+        }
+    });
+
+    function renderResult(mode, filename, blobSize, origSize, compSize, modeUsed) {
+        resultStats.innerHTML = "";
+        if (mode === "compress" && origSize && compSize) {
+            const orig = parseInt(origSize, 10), comp = parseInt(compSize, 10);
+            const pct = orig ? (100 * (1 - comp / orig)).toFixed(1) : "0";
+            resultStats.innerHTML = `
+                <div class="stat"><div class="num">${humanSize(orig)}</div><div class="lbl">Original</div></div>
+                <div class="stat"><div class="num">${humanSize(comp)}</div><div class="lbl">Compressed</div></div>
+                <div class="stat accent"><div class="num">${pct}%</div><div class="lbl">Saved</div></div>`;
+        } else {
+            resultStats.innerHTML = `
+                <div class="stat"><div class="num">${filename}</div><div class="lbl">Restored file</div></div>
+                <div class="stat"><div class="num">${humanSize(blobSize)}</div><div class="lbl">Size</div></div>`;
+        }
+        if (modeUsed === "json-turbo") {
+            resultBadge.textContent = "⚡ Turbo — schema-aware";
+            resultBadge.className = "result-badge turbo";
+        } else if (modeUsed) {
+            resultBadge.textContent = "SchemaZip Standard";
+            resultBadge.className = "result-badge standard";
+        } else {
+            resultBadge.textContent = "Restored";
+            resultBadge.className = "result-badge standard";
+        }
+        resultDownload.textContent = "Your download should start automatically.";
+        resultPanel.style.display = "block";
+    }
+</script>
+
+</body>
+</html>
