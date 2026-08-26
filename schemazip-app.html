@@ -8,6 +8,7 @@
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1378964403590324"
          crossorigin="anonymous"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <style>
         :root {
@@ -74,6 +75,43 @@
         header p.subtitle { font-size: 1.05rem; color: var(--text-muted); max-width: 640px; margin: 0 auto; font-weight: 300; }
 
         .container { max-width: 720px; margin: 0 auto; padding: 10px 20px 60px; }
+
+        /* account bar */
+        .account-bar {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px;
+            padding: 18px 22px; margin-bottom: 24px;
+        }
+        .account-signedout { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+        .account-signedout p { font-size: 0.88rem; color: var(--text-muted); margin: 0; }
+        #google-btn-container { min-height: 40px; }
+        .account-divider { display: flex; align-items: center; gap: 10px; width: 100%; max-width: 280px; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .account-divider::before, .account-divider::after { content: ""; flex: 1; height: 1px; background: var(--border-color); }
+        .email-toggle-link, .skip-link { background: none; border: none; color: var(--accent-blue); font-size: 0.85rem; font-weight: 600; cursor: pointer; font-family: inherit; text-decoration: none; }
+        .email-toggle-link:hover, .skip-link:hover { color: #fff; }
+        .skip-link { color: var(--text-muted); }
+
+        .email-form { display: none; flex-direction: column; gap: 10px; width: 100%; max-width: 280px; margin-top: 4px; }
+        .email-form.open { display: flex; }
+        .email-form input {
+            background: #0f1420; border: 1px solid var(--border-color); border-radius: 8px;
+            padding: 10px 12px; color: var(--text-main); font-size: 0.9rem; font-family: inherit;
+        }
+        .email-form input:focus { outline: none; border-color: var(--accent-blue); }
+        .email-form button {
+            background: var(--accent-blue); color: #fff; border: none; border-radius: 8px;
+            padding: 10px; font-weight: 700; font-size: 0.88rem; cursor: pointer; font-family: inherit;
+        }
+        .email-form-switch { font-size: 0.78rem; color: var(--text-muted); text-align: center; }
+        .email-form-switch button { background: none; border: none; color: var(--accent-blue); font-weight: 600; cursor: pointer; font-family: inherit; font-size: inherit; padding: 0; }
+        .email-form-error { font-size: 0.8rem; color: var(--accent-red); text-align: center; min-height: 1.2em; }
+
+        .account-signedin { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .account-signedin .who { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; }
+        .account-signedin .who .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); flex-shrink: 0; }
+        .account-signedin .who .email { color: #fff; font-weight: 600; }
+        .account-signedin .who .tag { color: var(--accent-green); font-weight: 700; font-size: 0.78rem; }
+        .signout-link { background: none; border: none; color: var(--text-muted); font-size: 0.82rem; cursor: pointer; font-family: inherit; }
+        .signout-link:hover { color: #fff; }
 
         /* mode switch -- mirrors the desktop app's own tab bar exactly */
         .mode-switch {
@@ -164,10 +202,31 @@
 
 <header>
     <h1 class="glow-heading">SchemaZip Web App</h1>
-    <p class="subtitle">Compress any file, or restore a <code>.schemazip</code> file back to the exact original — no install, nothing retained after the request. Prefer folders or larger files? Grab the <a href="schemazip.html#desktop" style="color:var(--accent-cyan);">desktop app</a> instead.</p>
+    <p class="subtitle">Compress any file, or restore a <code>.schemazip</code> file back to the exact original — no install, nothing retained after the request.</p>
 </header>
 
 <div class="container">
+
+    <div class="account-bar" id="account-bar">
+        <div class="account-signedout" id="account-signedout">
+            <p>Sign in for unlimited use — or skip it and use the free tier below.</p>
+            <div id="google-btn-container"></div>
+            <div class="account-divider">or</div>
+            <button type="button" class="email-toggle-link" id="email-toggle">Continue with email</button>
+            <form class="email-form" id="email-form">
+                <input type="email" id="email-input" placeholder="you@example.com" autocomplete="email" required>
+                <input type="password" id="password-input" placeholder="Password" autocomplete="current-password" required minlength="8">
+                <button type="submit" id="email-submit">Sign in</button>
+                <div class="email-form-switch" id="email-form-switch">New here? <button type="button" id="email-form-switch-btn">Create an account</button></div>
+                <div class="email-form-error" id="email-form-error"></div>
+            </form>
+            <button type="button" class="skip-link" id="skip-link">Skip — use the free tier</button>
+        </div>
+        <div class="account-signedin" id="account-signedin" style="display:none;">
+            <div class="who"><span class="dot"></span> Signed in as <span class="email" id="signedin-email"></span> · <span class="tag">unlimited</span></div>
+            <button type="button" class="signout-link" id="signout-link">Sign out</button>
+        </div>
+    </div>
 
     <div class="mode-switch">
         <button class="mode-btn active compress" id="tab-compress" data-mode="compress">⤓ Compress</button>
@@ -193,7 +252,7 @@
         </div>
     </div>
 
-    <p class="privacy-note">Your file is processed in memory for this one request only — never written to persistent storage, never logged, never retained. Compress caps at 2MB, decompress at 8MB, on this free-tier deployment; the desktop app has no such limit.</p>
+    <p class="privacy-note">Your file is processed in memory for this one request only — never written to persistent storage, never logged, never retained. Compress caps at 2MB, decompress at 8MB, on this free-tier deployment.</p>
 
 </div>
 
@@ -204,7 +263,124 @@
 
 <script>
     const API_BASE = "https://schemazip-web-api.onrender.com";
+    const GOOGLE_CLIENT_ID = "915675316465-3s5sh9tsaim4dfm82enr9luvkfiji706.apps.googleusercontent.com";
+    const TOKEN_KEY = "schemazip_token";
+    const EMAIL_KEY = "schemazip_email";
 
+    // ---------------------------------------------------------------- account
+    const accountSignedout = document.getElementById("account-signedout");
+    const accountSignedin = document.getElementById("account-signedin");
+    const signedinEmail = document.getElementById("signedin-email");
+    const signoutLink = document.getElementById("signout-link");
+    const skipLink = document.getElementById("skip-link");
+    const emailToggle = document.getElementById("email-toggle");
+    const emailForm = document.getElementById("email-form");
+    const emailInput = document.getElementById("email-input");
+    const passwordInput = document.getElementById("password-input");
+    const emailSubmit = document.getElementById("email-submit");
+    const emailFormSwitch = document.getElementById("email-form-switch");
+    const emailFormSwitchBtn = document.getElementById("email-form-switch-btn");
+    const emailFormError = document.getElementById("email-form-error");
+
+    let emailFormMode = "login"; // or "signup"
+
+    function getToken() { return localStorage.getItem(TOKEN_KEY); }
+
+    function setSession(token, email) {
+        localStorage.setItem(TOKEN_KEY, token);
+        localStorage.setItem(EMAIL_KEY, email);
+        renderAccountState();
+    }
+
+    function clearSession() {
+        localStorage.removeItem(TOKEN_KEY);
+        localStorage.removeItem(EMAIL_KEY);
+        renderAccountState();
+    }
+
+    function renderAccountState() {
+        const token = getToken();
+        const email = localStorage.getItem(EMAIL_KEY);
+        if (token && email) {
+            accountSignedout.style.display = "none";
+            accountSignedin.style.display = "flex";
+            signedinEmail.textContent = email;
+        } else {
+            accountSignedout.style.display = "flex";
+            accountSignedin.style.display = "none";
+        }
+    }
+
+    signoutLink.addEventListener("click", clearSession);
+    skipLink.addEventListener("click", () => { accountSignedout.style.display = "none"; });
+
+    emailToggle.addEventListener("click", () => {
+        emailForm.classList.toggle("open");
+    });
+
+    // Event delegation on the container, not the button, so re-rendering the
+    // button's text/label via textContent below never loses its listener.
+    emailFormSwitch.addEventListener("click", (e) => {
+        if (e.target.id !== "email-form-switch-btn") return;
+        emailFormMode = emailFormMode === "login" ? "signup" : "login";
+        emailSubmit.textContent = emailFormMode === "login" ? "Sign in" : "Create account";
+        emailFormSwitch.firstChild.textContent = emailFormMode === "login" ? "New here? " : "Already have an account? ";
+        e.target.textContent = emailFormMode === "login" ? "Create an account" : "Sign in";
+        emailFormError.textContent = "";
+    });
+
+    emailForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        emailFormError.textContent = "";
+        emailSubmit.disabled = true;
+        const endpoint = emailFormMode === "login" ? "/api/auth/login" : "/api/auth/signup";
+        try {
+            const resp = await fetch(API_BASE + endpoint, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: emailInput.value.trim(), password: passwordInput.value }),
+            });
+            const data = await resp.json();
+            if (!resp.ok) throw new Error(data.error || "Something went wrong.");
+            setSession(data.token, data.email);
+            emailForm.reset();
+            emailForm.classList.remove("open");
+        } catch (err) {
+            emailFormError.textContent = err.message;
+        } finally {
+            emailSubmit.disabled = false;
+        }
+    });
+
+    async function handleGoogleCredential(response) {
+        try {
+            const resp = await fetch(API_BASE + "/api/auth/google", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ credential: response.credential }),
+            });
+            const data = await resp.json();
+            if (!resp.ok) throw new Error(data.error || "Google sign-in failed.");
+            setSession(data.token, data.email);
+        } catch (err) {
+            emailFormError.textContent = err.message;
+        }
+    }
+
+    if (window.google && window.google.accounts) {
+        initGoogleButton();
+    } else {
+        window.addEventListener("load", () => { if (window.google && window.google.accounts) initGoogleButton(); });
+    }
+    function initGoogleButton() {
+        google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleGoogleCredential });
+        google.accounts.id.renderButton(document.getElementById("google-btn-container"),
+            { theme: "filled_black", size: "medium", shape: "pill", text: "signin_with" });
+    }
+
+    renderAccountState();
+
+    // ---------------------------------------------------------------- compressor
     const tabCompress = document.getElementById("tab-compress");
     const tabDecompress = document.getElementById("tab-decompress");
     const appCard = document.getElementById("app-card");
@@ -288,13 +464,18 @@
         const form = new FormData();
         form.append("file", selectedFile);
         const endpoint = mode === "compress" ? "/api/compress" : "/api/decompress";
+        const token = getToken();
+        const headers = token ? { Authorization: "Bearer " + token } : {};
 
         try {
-            const resp = await fetch(API_BASE + endpoint, { method: "POST", body: form });
+            const resp = await fetch(API_BASE + endpoint, { method: "POST", headers, body: form });
             if (!resp.ok) {
                 let msg = "Something went wrong.";
                 try { msg = (await resp.json()).error || msg; }
-                catch (e) { msg = resp.status === 413 ? "That file is over the size limit." : msg; }
+                catch (e) {
+                    if (resp.status === 413) msg = "That file is over the size limit.";
+                    else if (resp.status === 429) msg = "Free-tier limit reached for now — sign in above for unlimited use.";
+                }
                 throw new Error(msg);
             }
 

@@ -208,40 +208,32 @@
         <span class="item"><span class="dot"></span> <strong>30–55%</strong> smaller than zstd, brotli, bz2 &amp; lzma</span>
         <span class="item"><span class="dot"></span> <strong>33%</strong> beyond the W3C EXI standard</span>
         <span class="item"><span class="dot"></span> <strong>28 / 28</strong> real files verified, individually</span>
-        <span class="item"><span class="dot"></span> Now shipping as a <strong>desktop app</strong></span>
+        <span class="item"><span class="dot"></span> Round-trip verified, <strong>byte-exact</strong></span>
     </div>
 </div>
 
 <header>
     <h1 class="glow-heading">SchemaZip</h1>
-    <p class="subtitle">A schema-aware compression engine for SAP IDoc, EDI, and business data — verified to beat plain zstd/brotli by 30–55%, and the W3C EXI standard itself by 33%. Try it live below, or grab the desktop app.</p>
+    <p class="subtitle">A schema-aware compression engine for SAP IDoc, EDI, and business data — verified to beat plain zstd/brotli by 30–55%, and the W3C EXI standard itself by 33%. Try it live below.</p>
 </header>
 
 <div class="container">
 
     <div class="article-card" id="desktop">
-        <span class="badge badge-amber">New</span>
-        <h2>SchemaZip is now a desktop app — two modes, no guessing</h2>
-        <p style="margin-top:-6px;">Don't want to install anything? <a href="schemazip-app.html" style="color:var(--accent-cyan); font-weight:700;">Use the web app instead</a> — same compress/decompress modes, right in your browser.</p>
-        <div class="app-showcase">
-            <div class="app-shot-frame">
-                <img src="assets/schemazip-app-compress.png" alt="SchemaZip desktop app showing the Compress tab active, with a drop zone for files and folders" loading="lazy">
-            </div>
-            <div>
-                <p>One window, two explicit modes — nothing to auto-detect, nothing to get wrong:</p>
-                <p>
-                    <span class="mode-pill compress">⤓ Compress</span>
-                    <span class="mode-pill decompress">⤑ Decompress</span>
-                </p>
-                <ul class="feature-list">
-                    <li><span class="tick">✓</span> Drop <strong>any file — or a whole folder</strong> — into Compress; every file inside gets the same schema-aware treatment, sub-folders and all.</li>
-                    <li><span class="tick">✓</span> Drop the resulting <code>.schemazip</code> back into Decompress and get the <strong>exact original back</strong>, checksum-verified before it's ever written to disk.</li>
-                    <li><span class="tick">✓</span> Flat JSON data gets the full schema-aware "Turbo" transform automatically; everything else still gets SchemaZip's own backend-optimized engine — never just a bare zstd/brotli call.</li>
-                    <li><span class="tick">✓</span> Runs entirely on your machine. Nothing uploaded, nothing logged.</li>
-                </ul>
-                <p style="font-size:0.85rem; color:var(--text-muted);">Windows desktop app (~15MB, single .exe, nothing to install). Built on the exact same engine verified on this page — same numbers, same guarantees, now with folders.</p>
-            </div>
-        </div>
+        <span class="badge badge-amber">Web App</span>
+        <h2>Two explicit modes, right in your browser — no guessing</h2>
+        <p style="margin-top:-6px;"><a href="schemazip-app.html" style="color:var(--accent-cyan); font-weight:700;">Open the web app</a> — sign in with Google and it's ready.</p>
+        <p>One window, two explicit modes — nothing to auto-detect, nothing to get wrong:</p>
+        <p>
+            <span class="mode-pill compress">⤓ Compress</span>
+            <span class="mode-pill decompress">⤑ Decompress</span>
+        </p>
+        <ul class="feature-list">
+            <li><span class="tick">✓</span> Drop <strong>any file</strong> into Compress and it gets the same schema-aware treatment every time.</li>
+            <li><span class="tick">✓</span> Drop the resulting <code>.schemazip</code> back into Decompress and get the <strong>exact original back</strong>, checksum-verified before it's ever sent to you.</li>
+            <li><span class="tick">✓</span> Flat JSON data gets the full schema-aware "Turbo" transform automatically; everything else still gets SchemaZip's own backend-optimized engine — never just a bare zstd/brotli call.</li>
+            <li><span class="tick">✓</span> Processed in memory for one request only. Nothing retained, nothing logged.</li>
+        </ul>
     </div>
 
     <div class="article-card">
