@@ -237,7 +237,7 @@
         <div class="drop-zone" id="drop-zone">
             <div class="icon" id="drop-icon">📄</div>
             <p class="big" id="drop-title">Drop a file here, or click to choose one</p>
-            <p id="drop-hint">Any file → compressed to .schemazip — up to 2MB on the web app</p>
+            <p id="drop-hint">Any file — PDF, XML, JSON, Excel, ZIP — compressed to .schemazip, up to 2MB on the web app</p>
             <input type="file" id="file-input">
         </div>
         <div class="action-row">
@@ -408,7 +408,7 @@
         dropIcon.textContent = m === "compress" ? "📄" : "📦";
         dropTitle.textContent = selectedFile ? selectedFile.name : "Drop a file here, or click to choose one";
         dropHint.textContent = m === "compress"
-            ? "Any file → compressed to .schemazip — up to 2MB on the web app"
+            ? "Any file — PDF, XML, JSON, Excel, ZIP — compressed to .schemazip, up to 2MB on the web app"
             : "A .schemazip file → restored exactly — up to 8MB on the web app";
         runBtn.textContent = selectedFile ? "Run" : "Choose a file first";
         statusLine.textContent = "";
